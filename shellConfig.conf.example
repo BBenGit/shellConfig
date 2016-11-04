@@ -1,0 +1,75 @@
+#!/bin/bash
+
+# Copyright 2016 Guillaume Bernard <contact.guib@laposte.net>
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+# MA 02110-1301, USA.
+
+## @var SERVERS
+## @brief Information about servers. 
+## @details A server is the content of a table with 4 entries
+## - NAME (alias name)
+## - SSH_PORT
+## - USERNAME
+## - DOMAIN
+declare -a SERVERS=()
+
+## @var CURRENT_SRV
+## @brief The current server.
+## @details The server to use as default some functions.
+declare -a CURRENT_SRV=()
+
+## @var The first server
+declare -a SRV_1=()
+SRV_1+=(NAME="srv")
+SRV_1+=(SSH_PORT=22)
+SRV_1+=(USERNAME="user")
+SRV_1+=(DOMAIN="domain.tld")
+SRV_1+=(REMOTE_SRC_DIR="/var/archives")
+SRV_1+=(LOCAL_DEST_DIR="/home/${USER}/")
+SRV_1+=(LOCAL_SRC_DIR="/home/${USER}/server")
+SRV_1+=(REMOTE_DEST_DIR="/var/www")
+
+SERVERS+=(${SRV_1[@]})
+CURRENT_SRV+=(${SRV_1[@]})
+
+# Coloration pour les pages de manuel
+declare -x LESS_TERMCAP_mb=$'\E[01;31m'
+declare -x LESS_TERMCAP_md=$'\E[01;31m'
+declare -x LESS_TERMCAP_me=$'\E[0m'
+declare -x LESS_TERMCAP_se=$'\E[0m'
+declare -x LESS_TERMCAP_so=$'\E[01;44;33m'
+declare -x LESS_TERMCAP_ue=$'\E[0m'
+declare -x LESS_TERMCAP_us=$'\E[01;32m'
+
+## @var EDITOR
+## @brief Default text editor
+declare -x EDITOR=vim
+
+## @var GNUP_GHOME
+## @brief Path to the directory where GPG file are stored
+declare -x GNUPGHOME="${HOME}/.gnupg"
+
+## @var CDPATH
+## @brief CDPATH extension
+declare -x CDPATH=${CDPATH}:~/Documents/
+
+## @var CONFIGURATION_FILES_DIRECTORY
+## @brief The directory where are stored configuration files
+declare -x CONFIGURATION_FILES_DIRECTORY="${HOME}/Documents/Configuration"
+
+## @var GIT_PROJECTS_DIRECTORY
+## @brief The directory that contains git projects
+declare -x GIT_PROJECTS_DIRECTORY="${HOME}/Documents/Projects"

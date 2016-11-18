@@ -73,16 +73,20 @@ gitUpdate(){
         # Directory Name if an asbsolute path
         if [[ "${directoryName}" =~ ^/ ]]; then
             if [[ ! -d "${directoryName}" ]]; then
+                Log ${INFO} "Cloning project into ${directoryName}"
                 gitClone "${directoryName}" "${remoteURL}"
             else
+                Log ${INFO} "Fetching existing git directory : ${directoryName}"
                 gitFetch "${directoryName}"
             fi
         else
 
             # Else, it will be stored in the GIT_PROJECTS_DIRECTORY
             if [[ ! -d "${GIT_PROJECTS_DIRECTORY}/${directoryName}" ]]; then
+                Log ${INFO} "Cloning project into ${GIT_PROJECTS_DIRECTORY}/${directoryName}"
                 gitClone "${GIT_PROJECTS_DIRECTORY}/${directoryName}" "${remoteURL}"
             else
+                Log ${INFO} "Fetching existing git directory : ${GIT_PROJECTS_DIRECTORY}/${directoryName}"
                 gitFetch "${GIT_PROJECTS_DIRECTORY}/${directoryName}"
             fi
         fi

@@ -17,12 +17,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 # MA 02110-1301, USA.
 
-XFLUX_BIN="$(which xflux)"
 NUMLOCKX_BIN="$(which numlockx)"
-
-if [[ -x "${XFLUX_BIN}" ]]; then
-    "${XFLUX_BIN}" -l 46.762 -g -1.527
-fi
 
 if [[ -x "${NUMLOCKX_BIN}" ]]; then
     "${NUMLOCKX_BIN}" on

@@ -20,6 +20,10 @@
 ## @file install.sh
 ## @brief Configure the shell to be used
 
+## @var OUT
+## @brief Output for logging
+declare -x OUT="$(tty)"
+
 ## @var SHELLCONFIG_INSTALLATION_DIR
 ## @brief The directory that will serve shellConfig files
 declare -x SHELLCONFIG_INSTALLATION_DIR="${HOME}/.shellConfig"
@@ -48,39 +52,70 @@ declare -x DIRNAME="$(cd "$( dirname "${BASH_SOURCE[0]}")" && pwd)"
 ## @brief File used to save git output
 declare -x LOGFILE="$(mktemp --suffix=shellConfigInstallLog)"
 
+# Colors
+declare NORMAL="\e[39m"
+declare RED="\e[31m"
+declare BLUE="\e[34m"
+
+log()
+{
+    local color="${1}"
+    local msg="${2}"
+    echo -e "${color} ${msg} ${NORMAL}" > "${OUT}"
+}
+
+installLibShell()
+{
+    libShell="${HOME}/.local/bin/libShell"
+    if [[ ! -d "${libShell}" ]]; then
+        log "${BLUE}" "Cloning libShell"
+        "${GIT}" clone "${LIBSHELL_GIT_URL}" "${libShell}" > "${LOGFILE}"
+    fi
+}
+
+installPowerlineFonts()
+{
+    log "${BLUE}" "Cloning powerline fonts"
+    fonts="$(mktemp -d)"
+    "${GIT}" clone "${POWERLINEFONTS_GIT_URL}" "${fonts}" > "${LOGFILE}"
+    log "${BLUE}" "Installing fonts"
+    "${fonts}"/install.sh > /dev/null
+    log "${BLUE}" "You can now change your terminal font to Ubuntu Powerline and change your default shell interpreter"
+}
+
+installOhMyZsh()
+{
+    ohmyzsh="${HOME}/.oh-my-zsh"
+    if [[ ! -d "${ohmyzsh}" ]]; then
+        log "${BLUE}" "Cloning oh-my-zsh"
+        "${GIT}" clone "${OHMYZSH_GIT_URL}" "${ohmyzsh}" > "${LOGFILE}" 2>&1
+    fi
+}
+
+createUserSymlinks()
+{
+    log "${BLUE}" "Creating symlinks"
+    ln -sf "${DIRNAME}/bashrc" "${HOME}/.bashrc"
+    ln -sf "${DIRNAME}/profile" "${HOME}/.profile"
+    ln -sf "${DIRNAME}/zshrc" "${HOME}/.zshrc"
+    [[ -h "${SHELLCONFIG_INSTALLATION_DIR}" ]] || ln -sf "${DIRNAME}/shellConfig.conf.d" "${SHELLCONFIG_INSTALLATION_DIR}"
+}
+
+### Main function
+
 if [[ ! -x "${GIT}" ]]; then
-    echo -e "\e[31mERR : git must be installed\e[39m"
+    log "${RED}" "ERR : git must be installed"
     return
 fi
 
-# libshell
-libShell="${HOME}/.local/bin/libShell"
-if [[ ! -d "${libShell}" ]]; then
-    echo -e "\e[34mCloning libShell\e[39m"
-    "${GIT}" clone "${LIBSHELL_GIT_URL}" "${libShell}" > "${LOGFILE}" 2>&1
+installOhMyZsh > /dev/null 2>&1
+if [[ "$(id -u)" -ne 0 ]]; then
+    {
+        installLibShell
+        installPowerlineFonts
+        createUserSymlinks
+    } > /dev/null 2>&1
 fi
 
-# Powerline
-echo -e "\e[34mCloning powerline fonts\e[39m"
-fonts="$(mktemp -d)"
-"${GIT}" clone "${POWERLINEFONTS_GIT_URL}" "${fonts}" > "${LOGFILE}" 2>&1
-
-# oh-my-zsh
-ohmyzsh="${HOME}/.oh-my-zsh"
-if [[ ! -d "${ohmyzsh}" ]]; then
-    echo -e "\e[34mCloning oh-my-zsh\e[39m"
-    "${GIT}" clone "${OHMYZSH_GIT_URL}" "${ohmyzsh}" > "${LOGFILE}" 2>&1
-fi
-
-echo -e "\e[34mCreating symlinks\e[39m"
-ln -sf "${DIRNAME}/bashrc" "${HOME}/.bashrc"
-ln -sf "${DIRNAME}/profile" "${HOME}/.profile"
-ln -sf "${DIRNAME}/zshrc" "${HOME}/.zshrc"
-[[ -h "${SHELLCONFIG_INSTALLATION_DIR}" ]] || ln -sf "${DIRNAME}/shellConfig.conf.d" "${SHELLCONFIG_INSTALLATION_DIR}"
-
-echo -e "\e[34mInstalling fonts\e[39m"
-"${fonts}"/install.sh > /dev/null
-
-echo -e "\e[34mYou can now change your terminal font to Ubuntu Powerline and change your default shell interpreter\e[39m"
-
+log "${BLUE}" "All done !"
 

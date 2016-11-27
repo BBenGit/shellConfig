@@ -66,9 +66,18 @@ importConf()
         rm -rf "${HOME}/.local/share/applications"
         ln -sf "${dir}/applications/" "${HOME}/.local/share/applications"
     fi
+    
+    Log ${INFO} "Lien de fichiers de démarrage automatique d'applications"
+    if [[ ! -h "${HOME}/.config/autostart" ]]; then
+        rm -rf "${HOME}/.config/autostart"
+        ln -sf "${dir}/autostart/" "${HOME}/.config/autostart"
+    fi
 
     Log ${INFO} "Configuration pour shellConfig"
     ln -sf "${dir}/shellconfig.vars" "${SHELLCONFIG_CONF}"
+
+    Log ${INFO} "Configuration pour Redshift"
+    ln -sf "${dir}/redshift.conf" "${HOME}/.config/redshift.conf"
         
     loadGnome
     

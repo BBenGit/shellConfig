@@ -39,6 +39,8 @@ importConf()
     local web="${CONFIGURATION_FILES_DIRECTORY}/web"
     local dir_gpg="${dir}/gpg"
     local dir_git="${dir}/git"
+    local rhythmbox="${dir}/rhythmbox"
+    local bleachbit="${dir}/bleachbit"
   	
     Log ${INFO} "Lien de la configuration des fichiers à cacher"
     ln -sf "${dir}/hidden" "${HOME}/.hidden"
@@ -61,12 +63,19 @@ importConf()
     Log ${INFO} "Lien de la liste de flux pour Liferea"
     ln -sf "${web}/feedlist.opml" "${HOME}/.config/liferea/feedlist.opml"
 
+    Log ${INFO} "Configuration des listes et des radios de Rhythmbox"
+    ln -sf "${rhythmbox}/playlists.xml" "${HOME}/.local/share/rhythmbox/playlists.xml"
+    ln -sf "${rhythmbox}/rhythmdb.xml" "${HOME}/.local/share/rhythmbox/rhythmdb.xml"
+
+    Log ${INFO} "Configuration pour Bleachbit"
+    ln -sf "${bleachbit}/bleachbit.ini" "${HOME}/.config/bleachbit/bleachbit.ini"
+
     Log ${INFO} "Lien de fichiers d'applications"
     if [[ ! -h "${HOME}/.local/share/applications" ]]; then
         rm -rf "${HOME}/.local/share/applications"
         ln -sf "${dir}/applications/" "${HOME}/.local/share/applications"
     fi
-    
+
     Log ${INFO} "Lien de fichiers de démarrage automatique d'applications"
     if [[ ! -h "${HOME}/.config/autostart" ]]; then
         rm -rf "${HOME}/.config/autostart"

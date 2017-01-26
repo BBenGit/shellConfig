@@ -65,7 +65,7 @@ importConf()
 
     Log ${INFO} "Configuration des listes et des radios de Rhythmbox"
     ln -sf "${rhythmbox}/playlists.xml" "${HOME}/.local/share/rhythmbox/playlists.xml"
-    ln -sf "${rhythmbox}/rhythmdb.xml" "${HOME}/.local/share/rhythmbox/rhythmdb.xml"
+    cp -f "${rhythmbox}/rhythmdb.xml" "${HOME}/.local/share/rhythmbox/rhythmdb.xml"
 
     Log ${INFO} "Configuration pour Bleachbit"
     ln -sf "${bleachbit}/bleachbit.ini" "${HOME}/.config/bleachbit/bleachbit.ini"

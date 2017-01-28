@@ -62,35 +62,37 @@ __getRepositories(){
 
 ## @fn gitUpdate()
 ## @brief Fetch or clone git repositories
-## @todo Need to manage absolute path
+## @param string --pull if we want to pulling instead of fetching repository
 gitUpdate(){
+
+    local pullOn="${1}"
+
     __getRepositories
 
     touch "${GIT_LOGFILE}"
 
     for line in "${GIT_REPOSITORIES[@]}"; do
-        directoryName=$(cut -d'=' -f1 <<< "${line}")
-        remoteURL=$(cut -d'=' -f2 <<< "${line}")
+        local directoryName=$(cut -d'=' -f1 <<< "${line}")
+        local remoteURL=$(cut -d'=' -f2 <<< "${line}")
+        local targetDirectory=""
 
         # Directory Name if an asbsolute path
         if [[ "${directoryName}" =~ ^/ ]]; then
-            if [[ ! -d "${directoryName}" ]]; then
-                Log ${INFO} "Cloning project into ${directoryName}"
-                gitClone "${directoryName}" "${remoteURL}"
-            else
-                Log ${INFO} "Fetching existing git directory : ${directoryName}"
-                gitFetch "${directoryName}"
-            fi
+            targetDirectory="${directoryName}"
         else
+            targetDirectory="${GIT_PROJECTS_DIRECTORY}/${directoryName}"
+        fi
 
-            # Else, it will be stored in the GIT_PROJECTS_DIRECTORY
-            if [[ ! -d "${GIT_PROJECTS_DIRECTORY}/${directoryName}" ]]; then
-                Log ${INFO} "Cloning project into ${GIT_PROJECTS_DIRECTORY}/${directoryName}"
-                gitClone "${GIT_PROJECTS_DIRECTORY}/${directoryName}" "${remoteURL}"
-            else
-                Log ${INFO} "Fetching existing git directory : ${GIT_PROJECTS_DIRECTORY}/${directoryName}"
-                gitFetch "${GIT_PROJECTS_DIRECTORY}/${directoryName}"
-            fi
+        # Else, it will be stored in the GIT_PROJECTS_DIRECTORY
+        if [[ ! -d "${targetDirectory}" ]]; then
+            Log ${INFO} "Cloning project into ${targetDirectory}"
+            gitClone "${targetDirectory}" "${remoteURL}"
+        elif [[ "${pullOn}" == "--pull" ]]; then
+            Log ${INFO} "Pulling existing git directory : ${targetDirectory}"
+            gitPull "${targetDirectory}"
+        else
+            Log ${INFO} "Fetching existing git directory : ${targetDirectory}"
+            gitFetch "${targetDirectory}"
         fi
     done
 }

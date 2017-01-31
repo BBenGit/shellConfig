@@ -57,8 +57,8 @@ importConf()
     ln -sf "${dir_git}/gitconfig" "${HOME}/.gitconfig"
     ln -sf "${dir_git}/gitignore_global" "${HOME}/.gitignore_global"
 
-    Log ${INFO} "Lien de la configuration de ownCloud"
-    ln -sf "${dir}/owncloud_exclude.lst" "${HOME}/.local/share/data/ownCloud/sync-exclude.lst"
+    Log ${INFO} "Lien de la configuration de Nextcloud"
+    ln -sf "${dir}/owncloud_exclude.lst" "${HOME}/.local/share/data/Nextcloud/sync-exclude.lst"
 
     Log ${INFO} "Lien de la liste de flux pour Liferea"
     ln -sf "${web}/feedlist.opml" "${HOME}/.config/liferea/feedlist.opml"

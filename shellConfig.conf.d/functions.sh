@@ -41,6 +41,7 @@ importConf()
     local dir_git="${dir}/git"
     local rhythmbox="${dir}/rhythmbox"
     local bleachbit="${dir}/bleachbit"
+	local nextcloud="${dir}/nextcloud"
   	
     Log ${INFO} "Lien de la configuration des fichiers à cacher"
     ln -sf "${dir}/hidden" "${HOME}/.hidden"
@@ -58,7 +59,8 @@ importConf()
     ln -sf "${dir_git}/gitignore_global" "${HOME}/.gitignore_global"
 
     Log ${INFO} "Lien de la configuration de Nextcloud"
-    ln -sf "${dir}/owncloud_exclude.lst" "${HOME}/.local/share/data/Nextcloud/sync-exclude.lst"
+    ln -sf "${nextcloud}/nextcloud_exclude.lst" "${HOME}/.local/share/data/Nextcloud/sync-exclude.lst"
+	ln -sf "${nextcloud}/nextcloud.cfg" "${HOME}/.local/share/data/Nextcloud/nextcloud.cfg"
 
     Log ${INFO} "Lien de la liste de flux pour Liferea"
     ln -sf "${web}/feedlist.opml" "${HOME}/.config/liferea/feedlist.opml"

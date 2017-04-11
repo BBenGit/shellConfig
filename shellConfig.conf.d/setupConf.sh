@@ -151,7 +151,7 @@ setupGitConf(){
 setupNextcloudConf(){
     Log ${INFO} "Lien de la configuration de Nextcloud"
     ln -sf "${NEXTCLOUD_FILES["ignore"]}" "${NEXTCLOUD_FILES_DST["ignore"]}"
-    ln -sf "${NEXTCLOUD_FILES["config"]}" "${NEXTCLOUD_FILES_DST["config"]}"
+    cp -f "${NEXTCLOUD_FILES["config"]}" "${NEXTCLOUD_FILES_DST["config"]}"
 }
 
 setupRhythmboxConf(){

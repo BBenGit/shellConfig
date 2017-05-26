@@ -30,7 +30,7 @@ declare -x SHELLCONFIG_INSTALLATION_DIR="${HOME}/.shellConfig"
 
 ## @var LIBSHELL_GIT_URL
 ## @brief libShell remote repository
-declare -x LIBSHELL_GIT_URL="https://framagit.org/guilieb/libBash.git"
+declare -x LIBSHELL_GIT_URL="https://framagit.org/guilieb/libShell.git"
 
 ## @var POWERLINEFONTS_GIT_URL
 ## @brief Powerline Fonts remote repository 

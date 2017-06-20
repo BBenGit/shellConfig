@@ -35,6 +35,7 @@ alias brD="git branch -D"
 alias git_sign="git config commit.gpgsign true"
 alias tagp="git push --tags"
 alias tagl="git tag --list -n"
+alias reset="git reset --hard"
 
 ## @var GIT_REPOSITORIES
 ## @brief The array that contains repositories information

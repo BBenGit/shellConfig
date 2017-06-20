@@ -17,25 +17,33 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 # MA 02110-1301, USA.
 
-alias st="git status" 
-alias add="git add" 
-alias dff="git diff"
-alias cdff="git diff --cached"
-alias push="git push"
-alias pull="git pull"
-alias wdff="git diff --word-diff"
-alias wcdff="git diff --word-diff --cached"
-alias ckt="git checkout" 
-alias lg="git log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(red)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold black)%d%C(reset)' --all"
-alias slg="lg --show-signature"
-alias br="git branch"
-alias brd="git branch -d"
-alias bra="git branch -a"
-alias brD="git branch -D"
-alias git_sign="git config commit.gpgsign true"
-alias tagp="git push --tags"
-alias tagl="git tag --list -n"
-alias reset="git reset --hard"
+alias gsb="git status -sb"
+alias gst="git status"
+alias gadd="git add"
+
+alias gpush="git push"
+alias gpull="git pull"
+
+alias gdff="git diff"
+alias gcdff="git diff --cached"
+alias gwdff="git diff --word-diff"
+alias gwcdff="git diff --word-diff --cached"
+
+alias gckt="git checkout"
+
+alias glg="git log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(red)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold black)%d%C(reset)' --all"
+alias gslg="lg --show-signature"
+
+alias gbr="git branch"
+alias gbd="git branch -d"
+alias gba="git branch -a"
+alias gbD="git branch -D"
+
+alias gptag="git push --tags"
+alias gltag="git tag --list -n"
+alias grtags="git tag $2 $1; git push --tags; git tag -d $1; git push origin :refs/tags/$1"
+
+alias greset="git reset --hard"
 
 ## @var GIT_REPOSITORIES
 ## @brief The array that contains repositories information

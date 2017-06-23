@@ -50,7 +50,7 @@ alias chmod="chmod --preserve-root"
 alias chown="chown --preserve-root"
 
 # Login with su by default
-alias su="su --login"
+alias sul="su --login"
 
 # Remove temp files
 alias clean='find -name "*~" -exec rm {} \;'

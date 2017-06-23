@@ -19,17 +19,18 @@
 
 alias gsb="git status -sb"
 alias gst="git status"
-alias gadd="git add"
+alias gs="gst"
+alias ga="git add"
 
-alias gpush="git push"
-alias gpull="git pull"
+alias gp="git push"
+alias gl="git pull"
 
-alias gdff="git diff"
-alias gcdff="git diff --cached"
-alias gwdff="git diff --word-diff"
-alias gwcdff="git diff --word-diff --cached"
+alias gd="git diff"
+alias gcd="git diff --cached"
+alias gwd="git diff --word-diff"
+alias gwcd="git diff --word-diff --cached"
 
-alias gckt="git checkout"
+alias gco="git checkout"
 
 alias glg="git log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(red)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold black)%d%C(reset)' --all"
 alias gslg="lg --show-signature"

@@ -17,8 +17,13 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 # MA 02110-1301, USA.
 
+if [[ -z ${CONFIGURATION_FILES_DIRECTORY+x} ]] || [[ -z ${CONFIGURATION_FILES_DIRECTORY+x} ]]; then
+    echo "Variable \$CONFIGURATION_FILES_DIRECTORY is not set or is empty."
+fi
+
 export CONFIGURATION_FILES_DIRECTORY_LOCAL="${CONFIGURATION_FILES_DIRECTORY}/local"
 export CONFIGURATION_FILES_DIRECTORY_WEB="${CONFIGURATION_FILES_DIRECTORY}/web"
+export CONFIGURATION_FILES_TEMPLATES="${CONFIGURATION_FILES_DIRECTORY}/Modèles de documents"
 
 declare -A CONFIGURATION_FILES_DIRECTORIES
 CONFIGURATION_FILES_DIRECTORIES["rhythmbox"]="${CONFIGURATION_FILES_DIRECTORY_LOCAL}/rhythmbox"
@@ -44,10 +49,13 @@ GPG_FILES_DST["cert"]="${HOME}/.gnupg/sks-keyservers.netCA.crt"
 declare -A GIT_FILES
 GIT_FILES["gitconfig"]="${CONFIGURATION_FILES_DIRECTORIES["git"]}/gitconfig"
 GIT_FILES["gitignore"]="${CONFIGURATION_FILES_DIRECTORIES["git"]}/gitignore_global"
+GIT_FILES["git-commit-template"]="${CONFIGURATION_FILES_DIRECTORIES["git"]}/git-commit-template.txt"
+
 
 declare -A GIT_FILES_DST
 GIT_FILES_DST["gitconfig"]="${HOME}/.gitconfig"
 GIT_FILES_DST["gitignore"]="${HOME}/.gitignore_global"
+GIT_FILES_DST["git-commit-template"]="${HOME}/.git-commit-template.txt"
 
 ## NEXTCLOUD
 declare -A NEXTCLOUD_FILES
@@ -78,6 +86,7 @@ WEB_FILES_DST["liferea"]="${HOME}/.config/liferea/feedlist.opml"
 declare -A TOOLS_FILES
 TOOLS_FILES["bleachbit"]="${CONFIGURATION_FILES_DIRECTORY_LOCAL}/bleachbit/bleachbit.ini"
 TOOLS_FILES["vim"]="${CONFIGURATION_FILES_DIRECTORY_LOCAL}/vimrc"
+TOOLS_FILES["hidden"]="${CONFIGURATION_FILES_DIRECTORY_LOCAL}/hidden"
 TOOLS_FILES["hidden"]="${CONFIGURATION_FILES_DIRECTORY_LOCAL}/hidden"
 
 declare -A TOOLS_FILES_DST
@@ -111,6 +120,7 @@ importConf()
     setupLifereaConf
     setupBleachBitConf
     setupRhythmboxConf
+    setupFileTemplates
     loadGnome
     refresh
 }
@@ -146,6 +156,7 @@ setupGitConf(){
     Log ${INFO} "Lien de la configuration de Git"
     ln -sf "${GIT_FILES["gitconfig"]}" "${GIT_FILES_DST["gitconfig"]}"
     ln -sf "${GIT_FILES["gitignore"]}" "${GIT_FILES_DST["gitignore"]}"
+    ln -sf "${GIT_FILES["git-commit-template"]}" "${GIT_FILES_DST["git-commit-template"]}"
 }
 
 setupNextcloudConf(){
@@ -178,6 +189,11 @@ setupVimConf(){
 setupHiddenFiles(){
     Log ${INFO} "Lien de la configuration des fichiers à cacher"
     ln -sf "${TOOLS_FILES["hidden"]}" "${TOOLS_FILES_DST["hidden"]}"
+}
+
+setupFileTemplates(){
+    Log ${INFO} "Lien vers les modèles de fichiers"
+    ln -sf "${CONFIGURATION_FILES_TEMPLATES}" "${HOME}/Modèles"
 }
 
 

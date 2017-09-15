@@ -19,7 +19,6 @@
 
 alias gsb="git status -sb"
 alias gst="git status"
-alias gs="gst"
 alias ga="git add"
 
 alias gp="git push"

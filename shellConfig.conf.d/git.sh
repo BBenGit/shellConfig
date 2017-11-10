@@ -45,6 +45,12 @@ alias grtags="git tag $2 $1; git push --tags; git tag -d $1; git push origin :re
 
 alias greset="git reset --hard"
 
+alias gc='git commit -v'
+alias 'gc!'='git commit -v --amend'
+alias gca='git commit -v -a'
+alias 'gca!'='git commit -v -a --amend'
+alias gcam='git commit -a -m'
+
 ## @var GIT_REPOSITORIES
 ## @brief The array that contains repositories information
 declare -a GIT_REPOSITORIES=()

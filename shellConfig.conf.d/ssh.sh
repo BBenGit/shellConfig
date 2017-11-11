@@ -17,11 +17,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 # MA 02110-1301, USA.
 
-case "${SHELL}" in
-	*zsh) index=1;;
-	*bash) index=0;;
-esac
-
+local index=$(getArrayOffset)
 SERVERS_LEN=${#SERVERS[@]}
 for (( index; index < SERVERS_LEN; index+=8 ))
 do

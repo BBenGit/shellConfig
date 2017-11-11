@@ -18,7 +18,7 @@
 # MA 02110-1301, USA.
 
 if [[ -z ${CONFIGURATION_FILES_DIRECTORY+x} ]] || [[ -z ${CONFIGURATION_FILES_DIRECTORY+x} ]]; then
-    echo "Variable \$CONFIGURATION_FILES_DIRECTORY is not set or is empty."
+    Log ${ERROR} "Variable \$CONFIGURATION_FILES_DIRECTORY is not set or is empty."
 fi
 
 export CONFIGURATION_FILES_DIRECTORY_LOCAL="${CONFIGURATION_FILES_DIRECTORY}/local"

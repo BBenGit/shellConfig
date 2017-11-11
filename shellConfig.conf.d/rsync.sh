@@ -24,10 +24,7 @@
 ## @brief synchronize a remote backup directory to the associate local one
 ## @attention Use content of CURRENT_SRV variable
 fromServer () {
-    case "${SHELL}" in
-	    *zsh) index=1;;
-	    *bash) index=0;;
-    esac
+    local index=$(getArrayOffset)
     syncServer "$(cut -d'=' -f2 <<< ${CURRENT_SRV[${index}+4]})" "$(cut -d'=' -f2 <<< ${CURRENT_SRV[${index}+5]})"
 }
 
@@ -35,10 +32,7 @@ fromServer () {
 ## @brief synchronize a local backup directory to the associate remote one
 ## @attention Use content of CURRENT_SRV variable
 toServer () {
-    case "${SHELL}" in
-	    *zsh) index=1;;
-	    *bash) index=0;;
-    esac
+    local index=$(getArrayOffset)
     syncServer "$(cut -d'=' -f2 <<< ${CURRENT_SRV[${index}+6]})" "$(cut -d'=' -f2 <<< ${CURRENT_SRV[${index}+7]})"
 }
 
@@ -50,10 +44,7 @@ toServer () {
 syncServer () {
     local src="${1}"
     local dest="${2}"
-    case "${SHELL}" in
-	    *zsh) index=1;;
-	    *bash) index=0;;
-    esac
+    local index=$(getArrayOffset)
     if [[ "${src}" && "${dest}" ]]; then
         port=$(cut -d'=' -f2 <<< "${CURRENT_SRV[${index}+1]}")
         user=$(cut -d'=' -f2 <<< "${CURRENT_SRV[${index}+2]}")

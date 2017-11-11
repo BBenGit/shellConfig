@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Copyright 2016 Guillaume Bernard <contact@guillaume-bernard.fr>
+# Copyright 2016, 2017 Guillaume Bernard <contact@guillaume-bernard.fr>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by

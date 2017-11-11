@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Copyright 2016 Guillaume Bernard <contact.guib@laposte.net>
+# Copyright 2016, 2017 Guillaume Bernard <contact.guib@laposte.net>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -43,7 +43,11 @@ fi
 
 ## @var PS1
 ## @brief Bash PS1
-declare -x PS1="\[\e[00;33m\][\A]\[\e[0m\]\[\e[00;37m\] \[\e[0m\]\[\e[01;32m\]\u@\h\[\e[0m\]\[\e[00;37m\] \[\e[0m\]\[\e[01;31m\]\\$\[\e[0m\]\[\e[00;37m\] : \[\e[0m\]\[\e[00;34m\]\W\[\e[0m\] \[\e[0m\]"
+if [ $(id) -ne 0 ]; then
+	declare -x PS1="\[\e[00;33m\][\A]\[\e[0m\]\[\e[00;37m\] \[\e[0m\]\[\e[01;32m\]\u@\h\[\e[0m\]\[\e[00;37m\] \[\e[0m\]\[\e[01;31m\]\\$\[\e[0m\]\[\e[00;37m\] : \[\e[0m\]\[\e[00;34m\]\W\[\e[0m\] \[\e[0m\]"
+else
+	declare -x PS1="\[\e[00;33m\][\A]\[\e[0m\]\[\e[00;37m\] \[\e[0m\]\[\e[01;31;4m\]\u@\h\[\e[0m\]\[\e[00;37m\] \[\e[0m\]\[\e[01;31m\]\\$\[\e[0m\]\[\e[00;37m\] : \[\e[0m\]\[\e[00;34m\]\W\[\e[0m\] \[\e[0m\]"
+fi
 
 # Case insensitive
 bind 'set completion-ignore-case on'

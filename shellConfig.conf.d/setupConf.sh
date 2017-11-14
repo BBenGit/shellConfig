@@ -171,25 +171,33 @@ setupGitConf(){
 }
 
 setupNextcloudConf(){
-    Log ${INFO} "Lien de la configuration de Nextcloud"
-    ln -sf "${NEXTCLOUD_FILES["ignore"]}" "${NEXTCLOUD_FILES_DST["ignore"]}"
-    cp -f "${NEXTCLOUD_FILES["config"]}" "${NEXTCLOUD_FILES_DST["config"]}"
+    if [ -d "${CONFIGURATION_FILES_DST_DIRECTORIES["nextcloud"]}" ]; then
+        Log ${INFO} "Lien de la configuration de Nextcloud"
+        ln -sf "${NEXTCLOUD_FILES["ignore"]}" "${NEXTCLOUD_FILES_DST["ignore"]}"
+        cp -f "${NEXTCLOUD_FILES["config"]}" "${NEXTCLOUD_FILES_DST["config"]}"
+    fi
 }
 
 setupRhythmboxConf(){
-    Log ${INFO} "Configuration des listes et des radios de Rhythmbox"
-    ln -sf "${RHYTHMBOX_FILES["playlist"]}" "${RHYTHMBOX_FILES_DST["playlist"]}"
-    cp -f "${RHYTHMBOX_FILES["config"]}" "${RHYTHMBOX_FILES_DST["config"]}"
+    if [ -d "${CONFIGURATION_FILES_DST_DIRECTORIES["rhythmbox"]}" ]; then
+        Log ${INFO} "Configuration des listes et des radios de Rhythmbox"
+        ln -sf "${RHYTHMBOX_FILES["playlist"]}" "${RHYTHMBOX_FILES_DST["playlist"]}"
+        cp -f "${RHYTHMBOX_FILES["config"]}" "${RHYTHMBOX_FILES_DST["config"]}"
+    fi
 }
 
 setupLifereaConf(){
-    Log ${INFO} "Lien de la liste de flux pour Liferea"
-    ln -sf "${WEB_FILES["liferea"]}" "${WEB_FILES_DST["liferea"]}"
+    if [ -d "${CONFIGURATION_FILES_DST_DIRECTORIES["rhythmbox"]}" ]; then
+        Log ${INFO} "Lien de la liste de flux pour Liferea"
+        ln -sf "${WEB_FILES["liferea"]}" "${WEB_FILES_DST["liferea"]}"  
+    fi
 }
 
 setupBleachBitConf(){
-    Log ${INFO} "Configuration pour Bleachbit"
-    ln -sf "${TOOLS_FILES["bleachbit"]}" "${TOOLS_FILES_DST["bleachbit"]}"
+    if [ -d "${CONFIGURATION_FILES_DST_DIRECTORIES["bleachbit"]}" ]; then
+        Log ${INFO} "Configuration pour Bleachbit"
+        ln -sf "${TOOLS_FILES["bleachbit"]}" "${TOOLS_FILES_DST["bleachbit"]}"
+    fi
 }
 
 setupVimConf(){

@@ -21,9 +21,9 @@ if [[ -z ${CONFIGURATION_FILES_DIRECTORY+x} ]] || [[ -z ${CONFIGURATION_FILES_DI
     Log ${ERROR} "Variable \$CONFIGURATION_FILES_DIRECTORY is not set or is empty."
 fi
 
-export CONFIGURATION_FILES_DIRECTORY_LOCAL="${CONFIGURATION_FILES_DIRECTORY}/local"
-export CONFIGURATION_FILES_DIRECTORY_WEB="${CONFIGURATION_FILES_DIRECTORY}/web"
-export CONFIGURATION_FILES_TEMPLATES="${CONFIGURATION_FILES_DIRECTORY}/Modèles de documents"
+declare -x CONFIGURATION_FILES_DIRECTORY_LOCAL="${CONFIGURATION_FILES_DIRECTORY}/local"
+declare -x CONFIGURATION_FILES_DIRECTORY_WEB="${CONFIGURATION_FILES_DIRECTORY}/web"
+declare -x CONFIGURATION_FILES_TEMPLATES="${CONFIGURATION_FILES_DIRECTORY}/Modèles de documents"
 
 declare -A CONFIGURATION_FILES_DIRECTORIES
 CONFIGURATION_FILES_DIRECTORIES["rhythmbox"]="${CONFIGURATION_FILES_DIRECTORY_LOCAL}/rhythmbox"
@@ -31,6 +31,15 @@ CONFIGURATION_FILES_DIRECTORIES["bleachbit"]="${CONFIGURATION_FILES_DIRECTORY_LO
 CONFIGURATION_FILES_DIRECTORIES["nextcloud"]="${CONFIGURATION_FILES_DIRECTORY_LOCAL}/nextcloud"
 CONFIGURATION_FILES_DIRECTORIES["gpg"]="${CONFIGURATION_FILES_DIRECTORY_LOCAL}/gpg"
 CONFIGURATION_FILES_DIRECTORIES["git"]="${CONFIGURATION_FILES_DIRECTORY_LOCAL}/git"
+
+declare -A CONFIGURATION_FILES_DST_DIRECTORIES
+CONFIGURATION_FILES_DST_DIRECTORIES["rhythmbox"]="${HOME}/.local/share/rhythmbox"
+CONFIGURATION_FILES_DST_DIRECTORIES["bleachbit"]="${HOME}/.config/bleachbit"
+CONFIGURATION_FILES_DST_DIRECTORIES["nextcloud"]="${HOME}/.local/share/data/Nextcloud"
+CONFIGURATION_FILES_DST_DIRECTORIES["liferea"]="${HOME}/.config/liferea"
+CONFIGURATION_FILES_DST_DIRECTORIES["bleachbit"]="${HOME}/.config/bleachbit"
+CONFIGURATION_FILES_DST_DIRECTORIES["gpg"]="${HOME}/.gnupg"
+CONFIGURATION_FILES_DST_DIRECTORIES["git"]="${HOME}"
 
 ## GPG
 declare -A GPG_FILES
@@ -40,10 +49,10 @@ GPG_FILES["dirmngr"]="${CONFIGURATION_FILES_DIRECTORIES["gpg"]}/dirmngr.conf"
 GPG_FILES["cert"]="${CONFIGURATION_FILES_DIRECTORIES["gpg"]}/sks-keyservers.netCA.crt"
 
 declare -A GPG_FILES_DST
-GPG_FILES_DST["conf"]="${HOME}/.gnupg/gpg.conf"
-GPG_FILES_DST["agent"]="${HOME}/.gnupg/gpg-agent.conf"
-GPG_FILES_DST["dirmngr"]="${HOME}/.gnupg/dirmngr.conf"
-GPG_FILES_DST["cert"]="${HOME}/.gnupg/sks-keyservers.netCA.crt"
+GPG_FILES_DST["conf"]="${CONFIGURATION_FILES_DST_DIRECTORIES["gpg"]}/gpg.conf"
+GPG_FILES_DST["agent"]="${CONFIGURATION_FILES_DST_DIRECTORIES["gpg"]}/gpg-agent.conf"
+GPG_FILES_DST["dirmngr"]="${CONFIGURATION_FILES_DST_DIRECTORIES["gpg"]}/dirmngr.conf"
+GPG_FILES_DST["cert"]="${CONFIGURATION_FILES_DST_DIRECTORIES["gpg"]}/sks-keyservers.netCA.crt"
 
 ## GIT
 declare -A GIT_FILES
@@ -53,9 +62,9 @@ GIT_FILES["git-commit-template"]="${CONFIGURATION_FILES_DIRECTORIES["git"]}/git-
 
 
 declare -A GIT_FILES_DST
-GIT_FILES_DST["gitconfig"]="${HOME}/.gitconfig"
-GIT_FILES_DST["gitignore"]="${HOME}/.gitignore_global"
-GIT_FILES_DST["git-commit-template"]="${HOME}/.git-commit-template.txt"
+GIT_FILES_DST["gitconfig"]="${CONFIGURATION_FILES_DST_DIRECTORIES["git"]}/.gitconfig"
+GIT_FILES_DST["gitignore"]="${CONFIGURATION_FILES_DST_DIRECTORIES["git"]}/.gitignore_global"
+GIT_FILES_DST["git-commit-template"]="${CONFIGURATION_FILES_DST_DIRECTORIES["git"]}/.git-commit-template.txt"
 
 ## NEXTCLOUD
 declare -A NEXTCLOUD_FILES
@@ -63,24 +72,24 @@ NEXTCLOUD_FILES["config"]="${CONFIGURATION_FILES_DIRECTORIES["nextcloud"]}/nextc
 NEXTCLOUD_FILES["ignore"]="${CONFIGURATION_FILES_DIRECTORIES["nextcloud"]}/nextcloud_exclude.lst"
 
 declare -A NEXTCLOUD_FILES_DST
-NEXTCLOUD_FILES_DST["config"]="${HOME}/.local/share/data/Nextcloud/nextcloud.cfg"
-NEXTCLOUD_FILES_DST["ignore"]="${HOME}/.local/share/data/Nextcloud/sync-exclude.lst"
+NEXTCLOUD_FILES_DST["config"]="${CONFIGURATION_FILES_DST_DIRECTORIES["nextcloud"]}/nextcloud.cfg"
+NEXTCLOUD_FILES_DST["ignore"]="${CONFIGURATION_FILES_DST_DIRECTORIES["nextcloud"]}/sync-exclude.lst"
 
 ## RHYTHMBOX
 declare -A RHYTHMBOX_FILES
 RHYTHMBOX_FILES["config"]="${CONFIGURATION_FILES_DIRECTORIES["rhythmbox"]}/rhythmdb.xml"
-RHYTHMBOX_FILES["playlist"]="${CONFIGURATION_FILES_DIRECTORIES["rhythmbox"]}playlists.xml"
+RHYTHMBOX_FILES["playlist"]="${CONFIGURATION_FILES_DIRECTORIES["rhythmbox"]}/playlists.xml"
 
 declare -A RHYTHMBOX_FILES_DST
-RHYTHMBOX_FILES_DST["config"]="${HOME}/.local/share/rhythmbox/rhythmdb.xml"
-RHYTHMBOX_FILES_DST["playlist"]="${HOME}/.local/share/rhythmbox/playlists.xml"
+RHYTHMBOX_FILES_DST["config"]="${CONFIGURATION_FILES_DST_DIRECTORIES["rhythmbox"]}/rhythmdb.xml"
+RHYTHMBOX_FILES_DST["playlist"]="${CONFIGURATION_FILES_DST_DIRECTORIES["rhythmbox"]}/playlists.xml"
 
 ## WEB
 declare -A WEB_FILES
 WEB_FILES["liferea"]="${CONFIGURATION_FILES_DIRECTORY_WEB}/feedlist.opml"
 
 declare -A WEB_FILES_DST
-WEB_FILES_DST["liferea"]="${HOME}/.config/liferea/feedlist.opml"
+WEB_FILES_DST["liferea"]="${CONFIGURATION_FILES_DST_DIRECTORIES["liferea"]}/feedlist.opml"
 
 ## TOOLS
 declare -A TOOLS_FILES
@@ -90,7 +99,7 @@ TOOLS_FILES["hidden"]="${CONFIGURATION_FILES_DIRECTORY_LOCAL}/hidden"
 TOOLS_FILES["hidden"]="${CONFIGURATION_FILES_DIRECTORY_LOCAL}/hidden"
 
 declare -A TOOLS_FILES_DST
-TOOLS_FILES_DST["bleachbit"]="${HOME}/.config/bleachbit/bleachbit.ini"
+TOOLS_FILES_DST["bleachbit"]="${CONFIGURATION_FILES_DST_DIRECTORIES["liferea"]}/bleachbit.ini"
 TOOLS_FILES_DST["vim"]="${HOME}/.vimrc"
 TOOLS_FILES_DST["hidden"]="${HOME}/.hidden"
 

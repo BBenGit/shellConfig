@@ -112,7 +112,6 @@ importConf()
 {
     setupShellConfig
     setupHiddenFiles
-    setupDesktop
     setupVimConf
     setupGPGConf
     setupGitConf
@@ -121,7 +120,10 @@ importConf()
     setupBleachBitConf
     setupRhythmboxConf
     setupFileTemplates
-    loadGnome
+    if [ "${DESKTOP_SESSION}" == "gnome" ]; then
+		setupDesktop
+        loadGnome
+    fi
     refresh
 }
 

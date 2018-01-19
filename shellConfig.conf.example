@@ -62,6 +62,10 @@ declare -x EDITOR=vim
 ## @brief Path to the directory where GPG file are stored
 declare -x GNUPGHOME="${HOME}/.gnupg"
 
+## @var GPG_MAIN_KEY
+## @brief Main GPG Key used by the user
+declare -x GPG_MAIN_KEY_ID=""
+
 ## @var CDPATH
 ## @brief CDPATH extension
 declare -x CDPATH=${CDPATH}:~/Documents/

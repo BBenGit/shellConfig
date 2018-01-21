@@ -17,10 +17,6 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 # MA 02110-1301, USA.
 
-if [[ -z ${CONFIGURATION_FILES_DIRECTORY+x} ]] || [[ -z ${CONFIGURATION_FILES_DIRECTORY+x} ]]; then
-    Log ${ERROR} "Variable \$CONFIGURATION_FILES_DIRECTORY is not set or is empty."
-fi
-
 declare -x CONFIGURATION_FILES_DIRECTORY_LOCAL="${CONFIGURATION_FILES_DIRECTORY}/local"
 declare -x CONFIGURATION_FILES_DIRECTORY_WEB="${CONFIGURATION_FILES_DIRECTORY}/web"
 declare -x CONFIGURATION_FILES_TEMPLATES="${CONFIGURATION_FILES_DIRECTORY}/Modèles de documents"
@@ -129,7 +125,7 @@ importConf()
     setupBleachBitConf
     setupRhythmboxConf
     setupFileTemplates
-    if [ "${DESKTOP_SESSION}" == "gnome" ]; then
+    if [[ "${DESKTOP_SESSION}" == "gnome" ]]; then
 		setupDesktop
         loadGnome
     fi
@@ -174,7 +170,7 @@ setupNextcloudConf(){
     if [ -d "${CONFIGURATION_FILES_DST_DIRECTORIES["nextcloud"]}" ]; then
         Log ${INFO} "Lien de la configuration de Nextcloud"
         ln -sf "${NEXTCLOUD_FILES["ignore"]}" "${NEXTCLOUD_FILES_DST["ignore"]}"
-        cp -f "${NEXTCLOUD_FILES["config"]}" "${NEXTCLOUD_FILES_DST["config"]}"
+        ln -sf "${NEXTCLOUD_FILES["config"]}" "${NEXTCLOUD_FILES_DST["config"]}"
     fi
 }
 

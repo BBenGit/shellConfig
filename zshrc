@@ -41,8 +41,11 @@ fi
 
 # The config files
 [[ -f "${SHELLCONFIG_CONF}" ]] && source "${SHELLCONFIG_CONF}"
-if [[ -d "${SHELLCONFIG_CONF_DIR}" ]]; then
+if [[ -d "${SHELLCONFIG_CONF_DIR}" ]] && [[ ! -z ${CONFIGURATION_FILES_DIRECTORY+x} ]]; then
+    Log ${DEBUG} "Loading shellConfig..."
     for file in "${SHELLCONFIG_CONF_DIR}"/*; do
         source "${file}"
     done
+else
+    Log ${ERROR} "Variable \$CONFIGURATION_FILES_DIRECTORY is not set or is empty. You need to fix this before using shellConfig."
 fi

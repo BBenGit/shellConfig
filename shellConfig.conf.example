@@ -66,6 +66,11 @@ declare -x GNUPGHOME="${HOME}/.gnupg"
 ## @brief Main GPG Key used by the user
 declare -x GPG_MAIN_KEY_ID=""
 
+## @var GPG_SUBKEY_IDS
+## @brief Array to store the GPG main key subkey ids
+declare -a GPG_SUBKEY_IDS=()
+GPG_SUBKEY_IDS+=()
+
 ## @var CDPATH
 ## @brief CDPATH extension
 declare -x CDPATH=${CDPATH}:~/Documents/

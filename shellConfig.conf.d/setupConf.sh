@@ -208,6 +208,7 @@ setupHiddenFiles(){
 
 setupFileTemplates(){
     Log ${INFO} "Lien vers les modèles de fichiers"
+    rm -fr Modèles
     ln -sf "${CONFIGURATION_FILES_TEMPLATES}" "${HOME}/Modèles"
 }
 

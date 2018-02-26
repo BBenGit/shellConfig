@@ -109,11 +109,11 @@ if [[ ! -x "${GIT}" ]]; then
 fi
 
 installOhMyZsh > /dev/null 2>&1
+installLibShell
+createUserSymlinks
 if [[ "$(id -u)" -ne 0 ]]; then
     {
-        installLibShell
         installPowerlineFonts
-        createUserSymlinks
     } > /dev/null 2>&1
 fi
 

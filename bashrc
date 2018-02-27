@@ -33,11 +33,17 @@ fi
 [[ -f "${SHELLCONFIG_CONF}" ]] && source "${SHELLCONFIG_CONF}"
 if [[ -d "${SHELLCONFIG_CONF_DIR}" ]]; then
     Log ${DEBUG} "Loading shellConfig..."
-    for file in "${SHELLCONFIG_CONF_DIR}"/*; do
-        source "${file}"
-    done
-    if [[ ! -z ${CONFIGURATION_FILES_DIRECTORY+x} ]]; then
-        Log ${ERROR} "Variable \$CONFIGURATION_FILES_DIRECTORY is not set or is empty. You need to fix this before using shellConfig."
+    if [[ -z ${CONFIGURATION_FILES_DIRECTORY+x} ]]; then
+        Log ${WARNING} "Variable \$CONFIGURATION_FILES_DIRECTORY is not set or is empty."
+        for file in "${SHELLCONFIG_CONF_DIR}"/*; do
+            if [[ ! ${file} =~ .*(gnome.sh|git.sh|setupConf.sh).* ]]; then
+                source "${file}"
+            fi
+        done
+    else
+        for file in "${SHELLCONFIG_CONF_DIR}"/*; do
+            source "${file}"
+        done
     fi
 fi
 

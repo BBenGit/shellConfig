@@ -74,6 +74,8 @@ installLibShell()
 
 installShellConfig()
 {
+    local SHELLCONFIG_CONF_DIR="${HOME}/.shellConfig"
+
     if [[ ! -d "${SHELLCONFIG_INSTALLATION_DIR}" ]]; then
         git clone "${SHELLCONFIG_GIT_URL}" "${SHELLCONFIG_INSTALLATION_DIR}"
     fi
@@ -82,8 +84,8 @@ installShellConfig()
     ln -sf "${SHELLCONFIG_INSTALLATION_DIR}/profile" "${HOME}/.profile"
     ln -sf "${SHELLCONFIG_INSTALLATION_DIR}/zshrc" "${HOME}/.zshrc"
 
-    if [[ ! -L "${SHELLCONFIG_INSTALLATION_DIR}" && "$(readlink ~/.shellConfig)" != ${SHELLCONFIG_INSTALLATION_DIR}/shellConfig.conf.d ]]; then
-        ln -sf "${SHELLCONFIG_INSTALLATION_DIR}/shellConfig.conf.d" "${SHELLCONFIG_INSTALLATION_DIR}"
+    if [[ ! -L "${SHELLCONFIG_CONF_DIR}" && "$(readlink ${SHELLCONFIG_CONF_DIR})" != ${SHELLCONFIG_INSTALLATION_DIR}/shellConfig.conf.d ]]; then
+        ln -sf "${SHELLCONFIG_INSTALLATION_DIR}/shellConfig.conf.d" "${SHELLCONFIG_CONF_DIR}"
     fi
 }
 

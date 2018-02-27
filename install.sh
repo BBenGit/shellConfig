@@ -75,7 +75,7 @@ installLibShell()
 installShellConfig()
 {
     if [[ ! -d "${SHELLCONFIG_INSTALLATION_DIR}" ]]; then
-        git clone "${SHELLCONFIG_URL}" "${SHELLCONFIG_INSTALLATION_DIR}"
+        git clone "${SHELLCONFIG_GIT_URL}" "${SHELLCONFIG_INSTALLATION_DIR}"
     fi
 
     ln -sf "${SHELLCONFIG_INSTALLATION_DIR}/bashrc" "${HOME}/.bashrc"
@@ -153,7 +153,7 @@ while true ; do
             ;;
         --*)
             echo "Argument invalide -- ${1}"
-            shortusage
+            usage
             exit 1
             ;;
         *)

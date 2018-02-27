@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Copyright 2016, 2017 Guillaume Bernard <contact@guillaume-bernard.fr>
+# Copyright 2016, 2018 Guillaume Bernard <contact@guillaume-bernard.fr>
 #
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -24,29 +24,29 @@
 ## @brief Output for logging
 declare -x OUT="$(tty)"
 
+## @var LIBSHELL_INSTALLATION_DIR
+## @brief The directory that will server libshell files
+declare -x LIBSHELL_INSTALLATION_DIR="${HOME}/.local/bin/libShell"
+
 ## @var SHELLCONFIG_INSTALLATION_DIR
 ## @brief The directory that will serve shellConfig files
-declare -x SHELLCONFIG_INSTALLATION_DIR="${HOME}/.shellConfig"
+declare -x SHELLCONFIG_INSTALLATION_DIR="${HOME}/.local/share/shellConfig"
 
 ## @var LIBSHELL_GIT_URL
 ## @brief libShell remote repository
 declare -x LIBSHELL_GIT_URL="https://framagit.org/guilieb/libShell.git"
 
+## @var SHELLCONFIG_GIT_URL
+## @brief shellconfig remote repository
+declare -x SHELLCONFIG_GIT_URL="https://framagit.org/guilieb/shellConfig.git"
+
 ## @var POWERLINEFONTS_GIT_URL
-## @brief Powerline Fonts remote repository 
+## @brief Powerline Fonts remote repository
 declare -x POWERLINEFONTS_GIT_URL="https://github.com/powerline/fonts.git"
 
 ## @var OHMYZSH_GIT_URL
 ## @brief OhMyZsh remote repository
 declare -x OHMYZSH_GIT_URL="https://github.com/robbyrussell/oh-my-zsh.git"
-
-## @var GIT
-## @brief The git binary
-declare -x GIT="$(which git)"
-
-## @var DIRNAME
-## @brief Current directory name
-declare -x DIRNAME="$(cd "$( dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 ## @var LOGFILE
 ## @brief File used to save git output
@@ -64,41 +64,52 @@ log()
     echo -e "${color} ${msg} ${NORMAL}" > "${OUT}"
 }
 
+# Installation of libShell, or update an existing installation
 installLibShell()
 {
-    libShell="${HOME}/.local/bin/libShell"
-    if [[ ! -d "${libShell}" ]]; then
-        log "${BLUE}" "Cloning libShell"
-        "${GIT}" clone "${LIBSHELL_GIT_URL}" "${libShell}" > "${LOGFILE}"
+    if [[ ! -d "${LIBSHELL_INSTALLATION_DIR}" ]]; then
+        git clone "${LIBSHELL_GIT_URL}" "${LIBSHELL_INSTALLATION_DIR}" > "${LOGFILE}"
+    else
+        git -C "${LIBSHELL_INSTALLATION_DIR}" checkout master && git -C "${LIBSHELL_INSTALLATION_DIR}" pull origin master
+    fi
+}
+
+installShellConfig()
+{
+    if [[ ! -d "${SHELLCONFIG_INSTALLATION_DIR}" ]]; then
+        git clone "${SHELLCONFIG_URL}" "${SHELLCONFIG_INSTALLATION_DIR}"
+    else
+        git -C "${SHELLCONFIG_INSTALLATION_DIR}" checkout master && git -C "${SHELLCONFIG_INSTALLATION_DIR}" pull origin master
+    fi
+
+    ln -sf "${SHELLCONFIG_INSTALLATION_DIR}/bashrc" "${HOME}/.bashrc"
+    ln -sf "${SHELLCONFIG_INSTALLATION_DIR}/profile" "${HOME}/.profile"
+    ln -sf "${SHELLCONFIG_INSTALLATION_DIR}/zshrc" "${HOME}/.zshrc"
+
+    if [[ ! -L "${SHELLCONFIG_INSTALLATION_DIR}" && "$(readlink ~/.shellConfig)" != ${SHELLCONFIG_INSTALLATION_DIR}/shellConfig.conf.d ]]; then
+        ln -sf "${SHELLCONFIG_INSTALLATION_DIR}/shellConfig.conf.d" "${SHELLCONFIG_INSTALLATION_DIR}"
     fi
 }
 
 installPowerlineFonts()
 {
     log "${BLUE}" "Cloning powerline fonts"
-    fonts="$(mktemp -d)"
+    local fonts="$(mktemp -d)"
     "${GIT}" clone "${POWERLINEFONTS_GIT_URL}" "${fonts}" > "${LOGFILE}"
     log "${BLUE}" "Installing fonts"
     "${fonts}"/install.sh > /dev/null
-    log "${BLUE}" "You can now change your terminal font to Ubuntu Powerline and change your default shell interpreter"
+    log "${BLUE}" "You can now change your terminal font to any Powerline font."
 }
 
 installOhMyZsh()
 {
-    ohmyzsh="${HOME}/.oh-my-zsh"
-    if [[ ! -d "${ohmyzsh}" ]]; then
+    local OHMYZSH_INSTALLATION_DIR="${HOME}/.oh-my-zsh"
+    if [[ ! -d "${OHMYZSH_INSTALLATION_DIR}" ]]; then
         log "${BLUE}" "Cloning oh-my-zsh"
-        "${GIT}" clone "${OHMYZSH_GIT_URL}" "${ohmyzsh}" > "${LOGFILE}" 2>&1
+        git clone "${OHMYZSH_GIT_URL}" "${OHMYZSH_INSTALLATION_DIR}" > "${LOGFILE}" 2>&1
+    else
+        git -C "${OHMYZSH_INSTALLATION_DIR}" checkout master && git -C "${OHMYZSH_INSTALLATION_DIR}" pull origin master
     fi
-}
-
-createUserSymlinks()
-{
-    log "${BLUE}" "Creating symlinks"
-    ln -sf "${DIRNAME}/bashrc" "${HOME}/.bashrc"
-    ln -sf "${DIRNAME}/profile" "${HOME}/.profile"
-    ln -sf "${DIRNAME}/zshrc" "${HOME}/.zshrc"
-    [[ -h "${SHELLCONFIG_INSTALLATION_DIR}" ]] || ln -sf "${DIRNAME}/shellConfig.conf.d" "${SHELLCONFIG_INSTALLATION_DIR}"
 }
 
 usage()
@@ -120,14 +131,13 @@ usage()
         --shell-config: enable ShellConfig on the system
     "
     exit 0
-
 }
 
 
 ### Main function
-if [[ ! -x "${GIT}" ]]; then
+if [[ ! -x "$(which git)" ]]; then
     log "${RED}" "ERR : git must be installed"
-    return
+    exit 1
 fi
 
 while true ; do
@@ -176,8 +186,8 @@ fi
 
 if [[ ${USE_SHELL_CONFIG} = true ]]; then
     log ${BLUE} "Installing ShellConfig…"
-    createUserSymlinks
+    installShellConfig
 fi
 
-log "${BLUE}" "Process is complete!"
+exit 0
 

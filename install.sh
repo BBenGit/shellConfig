@@ -69,8 +69,6 @@ installLibShell()
 {
     if [[ ! -d "${LIBSHELL_INSTALLATION_DIR}" ]]; then
         git clone "${LIBSHELL_GIT_URL}" "${LIBSHELL_INSTALLATION_DIR}" > "${LOGFILE}"
-    else
-        git -C "${LIBSHELL_INSTALLATION_DIR}" checkout master && git -C "${LIBSHELL_INSTALLATION_DIR}" pull origin master
     fi
 }
 
@@ -78,8 +76,6 @@ installShellConfig()
 {
     if [[ ! -d "${SHELLCONFIG_INSTALLATION_DIR}" ]]; then
         git clone "${SHELLCONFIG_URL}" "${SHELLCONFIG_INSTALLATION_DIR}"
-    else
-        git -C "${SHELLCONFIG_INSTALLATION_DIR}" checkout master && git -C "${SHELLCONFIG_INSTALLATION_DIR}" pull origin master
     fi
 
     ln -sf "${SHELLCONFIG_INSTALLATION_DIR}/bashrc" "${HOME}/.bashrc"
@@ -107,8 +103,6 @@ installOhMyZsh()
     if [[ ! -d "${OHMYZSH_INSTALLATION_DIR}" ]]; then
         log "${BLUE}" "Cloning oh-my-zsh"
         git clone "${OHMYZSH_GIT_URL}" "${OHMYZSH_INSTALLATION_DIR}" > "${LOGFILE}" 2>&1
-    else
-        git -C "${OHMYZSH_INSTALLATION_DIR}" checkout master && git -C "${OHMYZSH_INSTALLATION_DIR}" pull origin master
     fi
 }
 

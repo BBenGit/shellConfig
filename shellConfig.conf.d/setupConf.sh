@@ -99,18 +99,6 @@ TOOLS_FILES_DST["bleachbit"]="${CONFIGURATION_FILES_DST_DIRECTORIES["liferea"]}/
 TOOLS_FILES_DST["vim"]="${HOME}/.vimrc"
 TOOLS_FILES_DST["hidden"]="${HOME}/.hidden"
 
-## @fn refresh
-## @brief Reload the shell configuration
-refresh()
-{
-    Log ${INFO} "Reloading configuration"
-    if [ -n "$ZSH_NAME" ]; then
-        source "${HOME}/.zshrc"
-    elif [ -n "$BASH_VERSION" ]; then
-        source "${HOME}/.bashrc"
-    fi
-}
-
 ## @fn importConf
 ## @brief Import global configuration
 importConf()
@@ -210,14 +198,4 @@ setupFileTemplates(){
     Log ${INFO} "Lien vers les modèles de fichiers"
     rm -fr Modèles
     ln -sf "${CONFIGURATION_FILES_TEMPLATES}" "${HOME}/Modèles"
-}
-
-
-## @fn updateKit
-## @brief Update the shellConfig and libShell kits
-updateKit()
-{
-    Log ${INFO} "Mise à jour de la pile logicielle shellConfig et libShell"
-    gitPull "$(realpath ${LIBSHELL_DIR})"
-    gitPull "$(realpath ${SHELLCONFIG_CONF_DIR})"
 }

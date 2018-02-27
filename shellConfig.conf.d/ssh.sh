@@ -18,8 +18,8 @@
 # MA 02110-1301, USA.
 
 index=$(getArrayOffset)
-SERVERS_LEN=${#SERVERS[@]}
-for (( index; index < SERVERS_LEN; index+=8 ))
+server_len=${#SERVERS[@]}
+for (( index; index < server_len; index+=8 ))
 do
     cmd=$(cut -d'=' -f2 <<< "${SERVERS[$index]}")
     port=$(cut -d'=' -f2 <<< "${SERVERS[$index+1]}")
@@ -36,3 +36,5 @@ sshChangePassword()
     local input="${1}"
 	ssh-keygen -f "${input}" -p
 }
+
+unset index server_len

@@ -17,10 +17,9 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 # MA 02110-1301, USA.
 
-NUMLOCKX_BIN="$(which numlockx)"
-
-if [[ -x "${NUMLOCKX_BIN}" ]]; then
-    "${NUMLOCKX_BIN}" on
+numlockx_bin="$(which numlockx)"
+if [[ -x "${numlockx_bin}" ]]; then
+    "${numlockx_bin}" on
 fi
  
 if pgrep gpg-agent; then

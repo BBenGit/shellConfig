@@ -22,40 +22,40 @@
 
 ## @var OUT
 ## @brief Output for logging
-declare -x OUT="$(tty)"
+declare -r OUT="$(tty)"
 
 ## @var LIBSHELL_INSTALLATION_DIR
 ## @brief The directory that will server libshell files
-declare -x LIBSHELL_INSTALLATION_DIR="${HOME}/.local/bin/libShell"
+declare -r LIBSHELL_INSTALLATION_DIR="${HOME}/.local/bin/libShell"
 
 ## @var SHELLCONFIG_INSTALLATION_DIR
 ## @brief The directory that will serve shellConfig files
-declare -x SHELLCONFIG_INSTALLATION_DIR="${HOME}/.local/share/shellConfig"
+declare -r SHELLCONFIG_INSTALLATION_DIR="${HOME}/.local/share/shellConfig"
 
 ## @var LIBSHELL_GIT_URL
 ## @brief libShell remote repository
-declare -x LIBSHELL_GIT_URL="https://framagit.org/guilieb/libShell.git"
+declare -r LIBSHELL_GIT_URL="https://framagit.org/guilieb/libShell.git"
 
 ## @var SHELLCONFIG_GIT_URL
 ## @brief shellconfig remote repository
-declare -x SHELLCONFIG_GIT_URL="https://framagit.org/guilieb/shellConfig.git"
+declare -r SHELLCONFIG_GIT_URL="https://framagit.org/guilieb/shellConfig.git"
 
 ## @var POWERLINEFONTS_GIT_URL
 ## @brief Powerline Fonts remote repository
-declare -x POWERLINEFONTS_GIT_URL="https://github.com/powerline/fonts.git"
+declare -r POWERLINEFONTS_GIT_URL="https://github.com/powerline/fonts.git"
 
 ## @var OHMYZSH_GIT_URL
 ## @brief OhMyZsh remote repository
-declare -x OHMYZSH_GIT_URL="https://github.com/robbyrussell/oh-my-zsh.git"
+declare -r OHMYZSH_GIT_URL="https://github.com/robbyrussell/oh-my-zsh.git"
 
 ## @var LOGFILE
 ## @brief File used to save git output
-declare -x LOGFILE="$(mktemp --suffix=shellConfigInstallLog)"
+declare -r LOGFILE="$(mktemp --suffix=shellConfigInstallLog)"
 
 # Colors
-declare NORMAL="\e[39m"
-declare RED="\e[31m"
-declare BLUE="\e[34m"
+declare -r NORMAL="\e[39m"
+declare -r RED="\e[31m"
+declare -r BLUE="\e[34m"
 
 log()
 {

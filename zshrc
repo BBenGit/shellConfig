@@ -17,9 +17,9 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 # MA 02110-1301, USA.
 
-declare -x LIBSHELL_DIR="${HOME}/.local/bin/libShell"
-declare -x SHELLCONFIG_CONF="${HOME}/.shellConfig.conf"
-declare -x SHELLCONFIG_CONF_DIR="${HOME}/.shellConfig"
+declare LIBSHELL_DIR="${HOME}/.local/bin/libShell"
+declare SHELLCONFIG_CONF="${HOME}/.shellConfig.conf"
+declare SHELLCONFIG_CONF_DIR="${HOME}/.shellConfig"
 
 # Load libShell framework
 if [[ -e "${LIBSHELL_DIR}/libShell.sh" ]]; then

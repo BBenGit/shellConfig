@@ -20,7 +20,6 @@
 ## @var GIT_REPOSITORIES
 ## @brief The array that contains repositories information
 declare -a GIT_REPOSITORIES=()
-declare -x GIT_LOGFILE="/tmp/git-update.log"
 
 ## @fn __getRepositories()
 ## @brief Parse a file to store git repositories
@@ -48,8 +47,6 @@ gitUpdate(){
     local pullOn="${1}"
 
     __getRepositories
-
-    touch "${GIT_LOGFILE}"
 
     for line in "${GIT_REPOSITORIES[@]}"; do
         local directoryName=$(cut -d'=' -f1 <<< "${line}")

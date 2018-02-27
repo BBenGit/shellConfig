@@ -101,21 +101,83 @@ createUserSymlinks()
     [[ -h "${SHELLCONFIG_INSTALLATION_DIR}" ]] || ln -sf "${DIRNAME}/shellConfig.conf.d" "${SHELLCONFIG_INSTALLATION_DIR}"
 }
 
-### Main function
+usage()
+{
+    echo "
+        install.sh [-h] [--help]
+                   [--libshell]
+                   [--oh-my-zsh]
+                   [--powerline-fonts]
+                   [--shell-config]
 
+        --libshell: install LibShell in the user's current home directory
+
+        --oh-my-zsh: install Oh-My-ZSH in the user's current home directory. In
+                     order to run properly, you must install zsh.
+
+        --powerline-fonts: install powerline fonts for the current user
+
+        --shell-config: enable ShellConfig on the system
+    "
+    exit 0
+
+}
+
+
+### Main function
 if [[ ! -x "${GIT}" ]]; then
     log "${RED}" "ERR : git must be installed"
     return
 fi
 
-installOhMyZsh > /dev/null 2>&1
-installLibShell
-createUserSymlinks
-if [[ "$(id -u)" -ne 0 ]]; then
-    {
-        installPowerlineFonts
-    } > /dev/null 2>&1
+while true ; do
+    case ${1} in
+        --help | -h | -?)
+            usage
+            ;;
+        --libshell)
+            declare -r INSTALL_LIBSHELL=true
+            ;;
+        --oh-my-zsh)
+            declare -r INSTALL_OH_MY_ZSH=true
+            ;;
+        --powerline-fonts)
+            declare -r INSTALL_POWERLINE=true
+            ;;
+        --shell-config)
+            declare -r USE_SHELL_CONFIG=true
+            ;;
+        --*)
+            echo "Argument invalide -- ${1}"
+            shortusage
+            exit 1
+            ;;
+        *)
+            break
+            ;;
+    esac
+    shift
+done
+
+if [[ ${INSTALL_LIBSHELL} = true ]]; then
+    log ${BLUE} "Instaling LibShell…"
+    installLibShell
 fi
 
-log "${BLUE}" "All done !"
+if [[ ${INSTALL_OH_MY_ZSH} = true ]]; then
+    log ${BLUE} "Installing Oh-My-Zsh…"
+    installOhMyZsh
+fi
+
+if [[ ${INSTALL_POWERLINE} = true ]]; then
+    log ${BLUE} "Installing Powerline fonts…"
+    installPowerlineFonts
+fi
+
+if [[ ${USE_SHELL_CONFIG} = true ]]; then
+    log ${BLUE} "Installing ShellConfig…"
+    createUserSymlinks
+fi
+
+log "${BLUE}" "Process is complete!"
 

@@ -182,6 +182,7 @@ fi
 
 if [[ ${USE_SHELL_CONFIG} = true ]]; then
     log ${BLUE} "Installing ShellConfig…"
+    installLibShell
     installShellConfig
 fi
 

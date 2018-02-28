@@ -121,18 +121,18 @@ importConf()
 }
 
 setupShellConfig(){
-    Log ${INFO} "Configuration pour shellConfig"
+    Log ${INFO} "ShellConfig configuration"
     ln -sf "${CONFIGURATION_FILES_DIRECTORY_LOCAL}/shellconfig.vars" "${SHELLCONFIG_CONF}"
 }
 
 setupDesktop(){
-    Log ${INFO} "Lien de fichiers d'applications"
+    Log ${INFO} "Link to applications files"
     if [[ ! -h "${HOME}/.local/share/applications" ]]; then
         rm -rf "${HOME}/.local/share/applications"
         ln -sf "${CONFIGURATION_FILES_DIRECTORY_LOCAL}/applications/" "${HOME}/.local/share/applications"
     fi
 
-    Log ${INFO} "Lien de fichiers de démarrage automatique d'applications"
+    Log ${INFO} "Link to startup applications"
     if [[ ! -h "${HOME}/.config/autostart" ]]; then
         rm -rf "${HOME}/.config/autostart"
         ln -sf "${CONFIGURATION_FILES_DIRECTORY_LOCAL}/autostart/" "${HOME}/.config/autostart"
@@ -140,7 +140,7 @@ setupDesktop(){
 }
 
 setupGPGConf(){
-    Log ${INFO} "Lien de la configuration de GnuPG"
+    Log ${INFO} "Link to GnuPG configuration"
     ln -sf "${GPG_FILES["conf"]}" "${GPG_FILES_DST["conf"]}"
     ln -sf "${GPG_FILES["agent"]}" "${GPG_FILES_DST["agent"]}"
     ln -sf "${GPG_FILES["dirmngr"]}" "${GPG_FILES_DST["dirmngr"]}"
@@ -148,7 +148,7 @@ setupGPGConf(){
 }
 
 setupGitConf(){
-    Log ${INFO} "Lien de la configuration de Git"
+    Log ${INFO} "Link to Git configuration"
     ln -sf "${GIT_FILES["gitconfig"]}" "${GIT_FILES_DST["gitconfig"]}"
     ln -sf "${GIT_FILES["gitignore"]}" "${GIT_FILES_DST["gitignore"]}"
     ln -sf "${GIT_FILES["git-commit-template"]}" "${GIT_FILES_DST["git-commit-template"]}"
@@ -156,7 +156,7 @@ setupGitConf(){
 
 setupNextcloudConf(){
     if [ -d "${CONFIGURATION_FILES_DST_DIRECTORIES["nextcloud"]}" ]; then
-        Log ${INFO} "Lien de la configuration de Nextcloud"
+        Log ${INFO} "Link to Nextcloud configuration"
         ln -sf "${NEXTCLOUD_FILES["ignore"]}" "${NEXTCLOUD_FILES_DST["ignore"]}"
         ln -sf "${NEXTCLOUD_FILES["config"]}" "${NEXTCLOUD_FILES_DST["config"]}"
     fi
@@ -164,7 +164,7 @@ setupNextcloudConf(){
 
 setupRhythmboxConf(){
     if [ -d "${CONFIGURATION_FILES_DST_DIRECTORIES["rhythmbox"]}" ]; then
-        Log ${INFO} "Configuration des listes et des radios de Rhythmbox"
+        Log ${INFO} "Configuring Rhythmbox lists and radios"
         ln -sf "${RHYTHMBOX_FILES["playlist"]}" "${RHYTHMBOX_FILES_DST["playlist"]}"
         cp -f "${RHYTHMBOX_FILES["config"]}" "${RHYTHMBOX_FILES_DST["config"]}"
     fi
@@ -172,30 +172,30 @@ setupRhythmboxConf(){
 
 setupLifereaConf(){
     if [ -d "${CONFIGURATION_FILES_DST_DIRECTORIES["rhythmbox"]}" ]; then
-        Log ${INFO} "Lien de la liste de flux pour Liferea"
+        Log ${INFO} "Link for Liferea feedlist"
         ln -sf "${WEB_FILES["liferea"]}" "${WEB_FILES_DST["liferea"]}"  
     fi
 }
 
 setupBleachBitConf(){
     if [ -d "${CONFIGURATION_FILES_DST_DIRECTORIES["bleachbit"]}" ]; then
-        Log ${INFO} "Configuration pour Bleachbit"
+        Log ${INFO} "Bleachbit configuration"
         ln -sf "${TOOLS_FILES["bleachbit"]}" "${TOOLS_FILES_DST["bleachbit"]}"
     fi
 }
 
 setupVimConf(){
-    Log ${INFO} "Lien de la configuration de VIM"
+    Log ${INFO} "Link to VIM configuration"
     ln -sf "${TOOLS_FILES["vim"]}" "${TOOLS_FILES_DST["vim"]}"
 }
 
 setupHiddenFiles(){
-    Log ${INFO} "Lien de la configuration des fichiers à cacher"
+    Log ${INFO} "Link to hidden files configuration"
     ln -sf "${TOOLS_FILES["hidden"]}" "${TOOLS_FILES_DST["hidden"]}"
 }
 
 setupFileTemplates(){
-    Log ${INFO} "Lien vers les modèles de fichiers"
+    Log ${INFO} "Link to file templates"
     rm -fr Modèles
     ln -sf "${CONFIGURATION_FILES_TEMPLATES}" "${HOME}/Modèles"
 }

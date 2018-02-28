@@ -16,15 +16,23 @@
 ##  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ##
 
-declare -x GNOME_SETTINGS_DIR="${CONFIGURATION_FILES_DIRECTORY}/local/gnome"
-declare -x GNOME_SHELL_EXTENSIONS="${GNOME_SETTINGS_DIR}/shell/extensions"
-declare -x DCONF_SETTINGS="${GNOME_SETTINGS_DIR}/dconf.settings"
-declare -x GTK_BOOKMARKS="${GNOME_SETTINGS_DIR}/bookmarks"
-declare -x GNOME_OTHER_SETTINGS="${GNOME_SETTINGS_DIR}/settings.ini"
-declare -x XDG_USER_DIRS="${GNOME_SETTINGS_DIR}/user-dirs.dirs"
-declare -x XDG_USER_DIRS_LOCALE="${GNOME_SETTINGS_DIR}/user-dirs.locale"
+__loadVariables() {
+    GNOME_SETTINGS_DIR="${CONFIGURATION_FILES_DIRECTORY}/local/gnome"
+    GNOME_SHELL_EXTENSIONS="${GNOME_SETTINGS_DIR}/shell/extensions"
+    DCONF_SETTINGS="${GNOME_SETTINGS_DIR}/dconf.settings"
+    GTK_BOOKMARKS="${GNOME_SETTINGS_DIR}/bookmarks"
+    GNOME_OTHER_SETTINGS="${GNOME_SETTINGS_DIR}/settings.ini"
+    XDG_USER_DIRS="${GNOME_SETTINGS_DIR}/user-dirs.dirs"
+    XDG_USER_DIRS_LOCALE="${GNOME_SETTINGS_DIR}/user-dirs.locale"
+}
+
+__unsetVariables() {
+    unset GNOME_SETTINGS_DIR GNOME_SHELL_EXTENSIONS DCONF_SETTINGS \
+    GTK_BOOKMARKS GNOME_OTHER_SETTINGS XDG_USER_DIRS XDG_USER_DIRS_LOCALE
+}
 
 expGnome(){
+    __loadVariables
     Log ${INFO} "Exporting GNOME parameters..."
     
     Log ${DEBUG} "1. dconf database."
@@ -44,9 +52,11 @@ expGnome(){
     local installed_xdg_user_dirs_locale="${HOME}/.config/user-dirs.locale"
     [[ ! "$(realpath "${installed_xdg_user_dirs}")" == "${XDG_USER_DIRS}" ]] && cp -Lf "${installed_xdg_user_dirs}" "${XDG_USER_DIRS}"
     [[ ! "$(realpath "${installed_xdg_user_dirs_locale}")" == "${XDG_USER_DIRS_LOCALE}" ]] && cp -Lf "${installed_xdg_user_dirs_locale}" "${XDG_USER_DIRS_LOCALE}"
+    __unsetVariables
 }
 
 loadGnome(){
+    __loadVariables
     Log ${INFO} "Loading GNOME parameters..."
     
     Log ${DEBUG} "1. dconf database."
@@ -64,6 +74,7 @@ loadGnome(){
 
     Log ${DEBUG} "5. GNOME Shell extensions."
     ln -sf "${GNOME_SHELL_EXTENSIONS}" "${HOME}/.local/share/gnome-shell/extensions"
+    __unsetVariables
 }
 
 

@@ -1,3 +1,0 @@
-- Add SeLinux specifix aliases and functions
-    - find targeted contexts for specific process
-    - change context for specific uses

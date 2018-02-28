@@ -1,0 +1,7 @@
+- Switch to english as langage default
+    - setupConf.sh
+    - config
+    - gnupg.sh
+- Add SeLinux specifix aliases and functions
+    - find targeted contexts for specific process
+    - change context for specific uses

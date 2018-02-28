@@ -26,8 +26,6 @@ umask 077
 ## @brief Allow to use own colors
 eval "$(dircolors -b)"
 
-enableLogger ${CRITICAL} ${CONSOLE}
-
 ## @fn importShellConfigSetupFile
 ## @brief Import the shellConfig main setup file to its required location
 importShellConfigSetupFile() {

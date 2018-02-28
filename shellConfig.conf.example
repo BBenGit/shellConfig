@@ -17,9 +17,20 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 # MA 02110-1301, USA.
 
+## Enable the logger and set its parameters
+## First is the loglevel : ${INFO} > ${NOTE} > ${WARNING} > ${ERROR} > ${DEBUG}
+## > ${CRITICAL}.
+## If set to warning, you'll see warning, notes, and info.
+## If set to error, you'll se error, warning, notes. and info.
+## Second is the output : ${CONSOLE}, ${FILE}, ${CONSOLE_AND_FILE}
+## It is possible to provide a third argument, that will be used as a suffix
+## for the logfile. Then you'll be able to get it with a call to the getLogFile
+## function.
+enableLogger ${ERROR} ${CONSOLE}
+
 ## @var SERVERS
-## @brief Information about servers. 
-## @details A server is the content of a table with 4 entries
+## @brief Information about servers.
+## @details A server is the content of a table with 4 entries
 ## - NAME (alias name)
 ## - SSH_PORT
 ## - USERNAME
@@ -67,7 +78,7 @@ declare -x GNUPGHOME="${HOME}/.gnupg"
 declare -x GPG_MAIN_KEY_ID=""
 
 ## @var GPG_SUBKEY_IDS
-## @brief Array to store the GPG main key subkey ids
+## @brief Array to store the GPG main key subkey ids
 declare -a GPG_SUBKEY_IDS=()
 GPG_SUBKEY_IDS+=()
 
@@ -76,9 +87,9 @@ GPG_SUBKEY_IDS+=()
 declare -x CDPATH=${CDPATH}:~/Documents/
 
 ## @var CONFIGURATION_FILES_DIRECTORY
-## @brief The directory where are stored configuration files
+## @brief The directory where are stored configuration files
 declare -x CONFIGURATION_FILES_DIRECTORY="${HOME}/Documents/Configuration"
 
-## @var GIT_PROJECTS_DIRECTORY
-## @brief The directory that contains git projects
+## @var GIT_PROJECTS_DIRECTORY
+## @brief The directory that contains git projects
 declare -x GIT_PROJECTS_DIRECTORY="${HOME}/Documents/Projects"

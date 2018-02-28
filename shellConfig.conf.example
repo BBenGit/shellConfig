@@ -22,11 +22,11 @@
 ## > ${CRITICAL}.
 ## If set to warning, you'll see warning, notes, and info.
 ## If set to error, you'll se error, warning, notes. and info.
-## Second is the output : ${CONSOLE}, ${FILE}, ${CONSOLE_AND_FILE}
+## Second is the output : ${STDOUT}, ${FILE}, ${STDOUT_AND_FILE}
 ## It is possible to provide a third argument, that will be used as a suffix
 ## for the logfile. Then you'll be able to get it with a call to the getLogFile
 ## function.
-enableLogger ${ERROR} ${CONSOLE}
+enableLogger ${ERROR} ${STDOUT}
 
 ## @var SERVERS
 ## @brief Information about servers.

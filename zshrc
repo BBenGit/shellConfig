@@ -35,7 +35,7 @@ if [[ -d "${HOME}/.oh-my-zsh" ]]; then
     CASE_SENSITIVE="false"
     HYPHEN_INSENSITIVE="true"
     plugins=(git git-extras gpg-agent command-not-found)
-    export ZSH=${HOME}/.oh-my-zsh
+    declare -x ZSH=${HOME}/.oh-my-zsh
     source "${ZSH}"/oh-my-zsh.sh
 fi
 

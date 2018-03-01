@@ -33,7 +33,7 @@ __unsetVariables() {
 
 expGnome(){
     __loadVariables
-    Log ${INFO} "Exporting GNOME parameters..."
+    Log ${INFO} "Exporting GNOME parameters…"
     
     Log ${DEBUG} "1. dconf database."
     rm -f "${DCONF_SETTINGS}"
@@ -57,7 +57,7 @@ expGnome(){
 
 loadGnome(){
     __loadVariables
-    Log ${INFO} "Loading GNOME parameters..."
+    Log ${INFO} "Loading GNOME parameters…"
     
     Log ${DEBUG} "1. dconf database."
     dconf load / < "${DCONF_SETTINGS}"

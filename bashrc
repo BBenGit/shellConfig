@@ -32,7 +32,7 @@ fi
 # The config files
 [[ -f "${SHELLCONFIG_CONF}" ]] && source "${SHELLCONFIG_CONF}"
 if [[ -d "${SHELLCONFIG_CONF_DIR}" ]]; then
-    Log ${DEBUG} "Loading shellConfig..."
+    Log ${DEBUG} "Loading shellConfig…"
     if [[ -z ${CONFIGURATION_FILES_DIRECTORY+x} ]]; then
         Log ${WARNING} "Variable \$CONFIGURATION_FILES_DIRECTORY is not set or is empty."
         for file in "${SHELLCONFIG_CONF_DIR}"/*; do

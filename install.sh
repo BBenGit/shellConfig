@@ -22,7 +22,7 @@
 
 ## @var OUT
 ## @brief Output for logging
-declare -r OUT="$(tty)"
+declare -r OUT="/dev/stdout"
 
 ## @var LIBSHELL_INSTALLATION_DIR
 ## @brief The directory that will server libshell files

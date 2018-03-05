@@ -20,6 +20,7 @@
 declare LIBSHELL_DIR="${HOME}/.local/bin/libShell"
 declare SHELLCONFIG_CONF="${HOME}/.shellConfig.conf"
 declare SHELLCONFIG_CONF_DIR="${HOME}/.shellConfig"
+declare SHELLCONFIG_EXTERNAL_DIR="${HOME}/.shellConfig.external"
 
 # Load libShell framework
 if [[ -e "${LIBSHELL_DIR}/libShell.sh" ]]; then
@@ -47,6 +48,13 @@ if [[ -d "${SHELLCONFIG_CONF_DIR}" ]]; then
     fi
 fi
 
+# The external config files
+if [[ -d ${SHELLCONFIG_EXTERNAL_DIR} ]]; then
+    for file in "${SHELLCONFIG_EXTERNAL_DIR}"/*; do
+        source "${file}"
+    done
+fi
+
 # Better auto-complete mode
 if [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
@@ -62,3 +70,4 @@ fi
 
 # Case insensitive
 bind 'set completion-ignore-case on'
+

@@ -85,12 +85,12 @@ installShellConfig()
 
 enableShellConfig()
 {
-    Log ${NOTE} "Saving: .profile, .bashrc, .zshrc. Adding .old to their names"
+    log ${BLUE} "Saving: .profile, .bashrc, .zshrc. Adding .old to their names"
     [[ -f .bashrc ]] && mv -f .bashrc .bashrc.old
     [[ -f .zshrc ]] && mv -f .zshrc .zshrc.old
     [[ -f .profile ]] && mv -f .profile .profile.old
 
-    Log ${NOTE} "Creating new links, enabling ShellConfig…"
+    log ${BLUE} "Creating new links, enabling ShellConfig…"
     ln -sf "${SHELLCONFIG_INSTALLATION_DIR}/bashrc" "${HOME}/.bashrc"
     ln -sf "${SHELLCONFIG_INSTALLATION_DIR}/profile" "${HOME}/.profile"
     ln -sf "${SHELLCONFIG_INSTALLATION_DIR}/zshrc" "${HOME}/.zshrc"
@@ -216,7 +216,7 @@ if [[ ${INSTALL_SHELL_CONFIG} = true ]]; then
 fi
 
 if [[ ${USE_SHELL_CONFIG} = true ]]; then
-    Log ${BLUE} "Enabling ShellConfig for your system…"
+    log ${BLUE} "Enabling ShellConfig for your system…"
     enableShellConfig
 fi
 

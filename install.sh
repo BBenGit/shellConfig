@@ -116,6 +116,7 @@ usage()
                    [--oh-my-zsh]
                    [--powerline-fonts]
                    [--shell-config]
+                   [-all]
 
         --libshell: install LibShell in the user's current home directory
 
@@ -124,7 +125,10 @@ usage()
 
         --powerline-fonts: install powerline fonts for the current user
 
-        --shell-config: enable ShellConfig on the system
+        --shell-config: enable ShellConfig on the system. Implies installing
+                        libShell as well.
+
+        --all: install libShell, Powerline fonts, ShellConfig and OhMyZsh.
     "
     exit 0
 }
@@ -142,16 +146,22 @@ while true ; do
             usage
             ;;
         --libshell)
-            declare -r INSTALL_LIBSHELL=true
+            declare INSTALL_LIBSHELL=true
             ;;
         --oh-my-zsh)
-            declare -r INSTALL_OH_MY_ZSH=true
+            declare INSTALL_OH_MY_ZSH=true
             ;;
         --powerline-fonts)
-            declare -r INSTALL_POWERLINE=true
+            declare INSTALL_POWERLINE=true
             ;;
         --shell-config)
-            declare -r USE_SHELL_CONFIG=true
+            declare USE_SHELL_CONFIG=true
+            ;;
+        --all)
+            declare INSTALL_LIBSHELL=true
+            declare INSTALL_OH_MY_ZSH=true
+            declare INSTALL_POWERLINE=true
+            declare USE_SHELL_CONFIG=true
             ;;
         --*)
             echo "Argument invalide -- ${1}"

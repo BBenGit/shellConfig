@@ -79,7 +79,16 @@ installShellConfig()
     if [[ ! -d "${SHELLCONFIG_INSTALLATION_DIR}" ]]; then
         git clone "${SHELLCONFIG_GIT_URL}" "${SHELLCONFIG_INSTALLATION_DIR}"
     fi
+}
 
+enableShellConfig()
+{
+    Log ${NOTE} "Saving: .profile, .bashrc, .zshrc. Adding .old to their names"
+    [[ -f .bashrc ]] && mv -f .bashrc .bashrc.old
+    [[ -f .zshrc ]] && mv -f .zshrc .zshrc.old
+    [[ -f .profile ]] && mv -f .profile .profile.old
+
+    Log ${NOTE} "Creating new links, enabling ShellConfig…"
     ln -sf "${SHELLCONFIG_INSTALLATION_DIR}/bashrc" "${HOME}/.bashrc"
     ln -sf "${SHELLCONFIG_INSTALLATION_DIR}/profile" "${HOME}/.profile"
     ln -sf "${SHELLCONFIG_INSTALLATION_DIR}/zshrc" "${HOME}/.zshrc"
@@ -116,6 +125,7 @@ usage()
                    [--oh-my-zsh]
                    [--powerline-fonts]
                    [--shell-config]
+                   [--use-shell-config]
                    [-all]
 
         --libshell: install LibShell in the user's current home directory
@@ -125,8 +135,11 @@ usage()
 
         --powerline-fonts: install powerline fonts for the current user
 
-        --shell-config: enable ShellConfig on the system. Implies installing
+        --shell-config: install ShellConfig on the system. Implies installing
                         libShell as well.
+
+        --use-shell-config: enable ShellConfig default configuration (replaces
+                            any custom .profile, .bashrc or .zshrc
 
         --all: install libShell, Powerline fonts, ShellConfig and OhMyZsh.
     "
@@ -155,6 +168,10 @@ while true ; do
             declare INSTALL_POWERLINE=true
             ;;
         --shell-config)
+            declare INSTALL_SHELL_CONFIG=true
+            declare INSTALL_LIBSHELL=true
+            ;;
+        --use-shell-config)
             declare USE_SHELL_CONFIG=true
             ;;
         --all)
@@ -190,10 +207,14 @@ if [[ ${INSTALL_POWERLINE} = true ]]; then
     installPowerlineFonts
 fi
 
-if [[ ${USE_SHELL_CONFIG} = true ]]; then
+if [[ ${INSTALL_SHELL_CONFIG} = true ]]; then
     log ${BLUE} "Installing ShellConfig…"
-    installLibShell
     installShellConfig
+fi
+
+if [[ ${USE_SHELL_CONFIG} = true ]]; then
+    Log ${BLUE} "Enabling ShellConfig for your system…"
+    enableShellConfig
 fi
 
 exit 0

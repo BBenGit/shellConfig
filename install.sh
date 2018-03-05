@@ -69,6 +69,8 @@ installLibShell()
 {
     if [[ ! -d "${LIBSHELL_INSTALLATION_DIR}" ]]; then
         git clone "${LIBSHELL_GIT_URL}" "${LIBSHELL_INSTALLATION_DIR}" > "${LOGFILE}"
+    else
+        cd ${LIBSHELL_INSTALLATION_DIR} && git pull origin master && cd ${OLDPWD}
     fi
 }
 
@@ -76,6 +78,8 @@ installShellConfig()
 {
     if [[ ! -d "${SHELLCONFIG_INSTALLATION_DIR}" ]]; then
         git clone "${SHELLCONFIG_GIT_URL}" "${SHELLCONFIG_INSTALLATION_DIR}"
+    else
+        cd ${SHELLCONFIG_INSTALLATION_DIR} && git pull origin master && cd ${OLDPWD}
     fi
 }
 

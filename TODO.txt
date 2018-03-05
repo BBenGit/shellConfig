@@ -1,3 +1,0 @@
-install.sh :
-    → update git repositories if already installed
-    → git.sh: allow to give personnal details for each repo (name & email)

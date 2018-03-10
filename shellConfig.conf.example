@@ -86,10 +86,6 @@ GPG_SUBKEY_IDS+=()
 ## @brief CDPATH extension
 declare -x CDPATH=${CDPATH}:~/Documents/
 
-## @var CONFIGURATION_FILES_DIRECTORY
-## @brief The directory where are stored configuration files
-declare -x CONFIGURATION_FILES_DIRECTORY="${HOME}/Documents/Configuration"
-
 ## @var GIT_PROJECTS_DIRECTORY
 ## @brief The directory that contains git projects
-declare -x GIT_PROJECTS_DIRECTORY="${HOME}/Documents/Projects"
+declare -x GIT_REPOSITORY_FILE="${HOME}/Documents/git-projects.ini"

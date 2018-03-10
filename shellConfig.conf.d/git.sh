@@ -28,15 +28,13 @@ declare -a GIT_REPOSITORIES=()
 __getRepositories(){
 
     GIT_REPOSITORIES=()
-    local repositoryFile="${CONFIGURATION_FILES_DIRECTORY}/local/git/projects"
-
     IFS=$'\n'
     while read -r line;
     do
         directoryName=$(cut -d'=' -f1 <<< "${line}")
         remoteURL=$(cut -d'=' -f2 <<< "${line}")
         GIT_REPOSITORIES+=("${directoryName}=${remoteURL}")
-    done <<< "$(egrep ".*=.*" < "${repositoryFile}")"
+    done <<< "$(egrep ".*=.*" < "${GIT_REPOSITORY_FILE}")"
 }
 
 ## @fn gitUpdate()

@@ -17,18 +17,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 # MA 02110-1301, USA.
 
-declare LIBSHELL_DIR="${HOME}/.local/bin/libShell"
-declare SHELLCONFIG_CONF="${HOME}/.shellConfig.conf"
-declare SHELLCONFIG_CONF_DIR="${HOME}/.shellConfig"
-declare SHELLCONFIG_EXTERNAL_DIR="${HOME}/.shellConfig.external"
-
-# Load libShell framework
-if [[ -e "${LIBSHELL_DIR}/libShell.sh" ]]; then
-    source "${LIBSHELL_DIR}/libShell.sh"
-else
-    echo "\e[31mERR : libShell must be installed under $(dirname ${LIBSHELL_DIR}) directory !\e[39m"
-    return
-fi
+[[ -f "${HOME}/.shellrc" ]] && source "${HOME}/.shellrc"
 
 # Possible to use « Oh My ZSH »
 if [[ -d "${HOME}/.oh-my-zsh" ]]; then
@@ -39,29 +28,3 @@ if [[ -d "${HOME}/.oh-my-zsh" ]]; then
     declare -x ZSH=${HOME}/.oh-my-zsh
     source "${ZSH}"/oh-my-zsh.sh
 fi
-
-# The config files
-[[ -f "${SHELLCONFIG_CONF}" ]] && source "${SHELLCONFIG_CONF}"
-if [[ -d "${SHELLCONFIG_CONF_DIR}" ]]; then
-    Log ${DEBUG} "Loading shellConfig…"
-    if [[ -z ${CONFIGURATION_FILES_DIRECTORY+x} ]]; then
-        Log ${WARNING} "Variable \$CONFIGURATION_FILES_DIRECTORY is not set or is empty."
-        for file in "${SHELLCONFIG_CONF_DIR}"/*; do
-            if [[ ! ${file} =~ .*(gnome.sh|git.sh|setupConf.sh).* ]]; then
-                source "${file}"
-            fi
-        done
-    else
-        for file in "${SHELLCONFIG_CONF_DIR}"/*; do
-            source "${file}"
-        done
-    fi
-fi
-
-# The external config files
-if [[ -d ${SHELLCONFIG_EXTERNAL_DIR} ]]; then
-    for file in "${SHELLCONFIG_EXTERNAL_DIR}"/*; do
-        source "${file}"
-    done
-fi
-

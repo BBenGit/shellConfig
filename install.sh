@@ -94,6 +94,7 @@ enableShellConfig()
     ln -sf "${SHELLCONFIG_INSTALLATION_DIR}/bashrc" "${HOME}/.bashrc"
     ln -sf "${SHELLCONFIG_INSTALLATION_DIR}/profile" "${HOME}/.profile"
     ln -sf "${SHELLCONFIG_INSTALLATION_DIR}/zshrc" "${HOME}/.zshrc"
+    ln -sf "${SHELLCONFIG_INSTALLATION_DIR}/shellrc" "${HOME}/.shellrc"
 
     local SHELLCONFIG_CONF_DIR="${HOME}/.shellConfig"
     if [[ ! -L "${SHELLCONFIG_CONF_DIR}" && "$(readlink ${SHELLCONFIG_CONF_DIR})" != ${SHELLCONFIG_INSTALLATION_DIR}/shellConfig.conf.d ]]; then

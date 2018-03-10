@@ -30,11 +30,22 @@ eval "$(dircolors -b)"
 ## @brief Import the shellConfig main setup file to its required location
 importShellConfigSetupFile() {
 	local target="${1}"
-	if [ -f ${target} ]; then
+	if [[ -f "${target}" ]]; then
 		ln -s "${target}" "${SHELLCONFIG_CONF}"
 	else
 		Log ${ERROR} "Configuration file : ${target} not found."
 	fi
+}
+
+## @fn importShellConfigExternalDirectory()
+## @brief Import the directory containing external scripts
+importShellConfigExternalDirectory() {
+    local target="${1}"
+    if [[ -d "${target}" ]]; then
+        ln -s "${target}" "${SHELLCONFIG_EXTERNAL_DIR}"
+    else
+        Log ${ERROR} "External scripts directory not found."
+    fi
 }
 
 ## @fn updateKit

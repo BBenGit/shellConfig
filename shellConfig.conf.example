@@ -88,4 +88,4 @@ declare -x CDPATH=${CDPATH}:~/Documents/
 
 ## @var GIT_PROJECTS_DIRECTORY
 ## @brief The directory that contains git projects
-declare -x GIT_REPOSITORY_FILE="${HOME}/Documents/git-projects.ini"
+declare -x ls -lGIT_REPOSITORY_FILE="${HOME}/Documents/git-projects.ini"

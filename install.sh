@@ -77,7 +77,7 @@ installLibShell()
 installShellConfig()
 {
     if [[ ! -d "${SHELLCONFIG_INSTALLATION_DIR}" ]]; then
-        git clone "${SHELLCONFIG_GIT_URL}" "${SHELLCONFIG_INSTALLATION_DIR}"
+        git clone "${SHELLCONFIG_GIT_URL}" "${SHELLCONFIG_INSTALLATION_DIR}" > "${LOGFILE}"
     else
         cd ${SHELLCONFIG_INSTALLATION_DIR} && git pull origin master && cd ${OLDPWD}
     fi
@@ -182,6 +182,7 @@ while true ; do
             declare INSTALL_LIBSHELL=true
             declare INSTALL_OH_MY_ZSH=true
             declare INSTALL_POWERLINE=true
+            declare INSTALL_SHELL_CONFIG=true
             declare USE_SHELL_CONFIG=true
             ;;
         --*)
@@ -217,8 +218,12 @@ if [[ ${INSTALL_SHELL_CONFIG} = true ]]; then
 fi
 
 if [[ ${USE_SHELL_CONFIG} = true ]]; then
-    log ${BLUE} "Enabling ShellConfig for your system…"
-    enableShellConfig
+    if [[ ${INSTALL_SHELL_CONFIG} = true ]]; then
+        log ${BLUE} "Enabling ShellConfig for your system…"
+        enableShellConfig
+    else
+        log ${RED} "You cannot use ShellConfig without installing it."
+    fi
 fi
 
 exit 0

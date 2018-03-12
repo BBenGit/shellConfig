@@ -53,8 +53,8 @@ importShellConfigExternalDirectory() {
 updateKit()
 {
     Log ${INFO} "Updating shellConfig and libShell…"
-    gitPull "$(realpath ${LIBSHELL_DIR})"
-    gitPull "$(realpath ${SHELLCONFIG_CONF_DIR})"
+    cd "$(realpath ${LIBSHELL_DIR})" && git pull && cd "${OLDPWD}"
+    cd "$(realpath ${SHELLCONFIG_CONF_DIR})" && git pull && cd "${OLDPWD}"
 }
 
 ## @fn refresh

@@ -45,7 +45,7 @@ syncServer () {
     local src="${1}"
     local dest="${2}"
     local index=$(getArrayOffset)
-    if [[ "${src}" && "${dest}" ]]; then
+    if test "${src}" && "${dest}"; then
         port=$(cut -d'=' -f2 <<< "${CURRENT_SRV[${index}+1]}")
         user=$(cut -d'=' -f2 <<< "${CURRENT_SRV[${index}+2]}")
         host=$(cut -d'=' -f2 <<< "${CURRENT_SRV[${index}+3]}")

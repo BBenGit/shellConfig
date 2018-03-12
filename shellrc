@@ -30,6 +30,13 @@ else
     return
 fi
 
+if [ -n "$ZSH_VERSION" ]; then
+    if [[ $(zsh --version|cut -d' ' -f2|tr -d .) -le 530 ]]; then
+        printf "%b%s%b\n" "\e[31m" "zsh is too old, so unsupported. Cannot load shellConfig. Use bash instead." "\e[39m"
+        exit 1
+    fi
+fi
+
 # The config files
 [[ -f "${SHELLCONFIG_CONF}" ]] && source "${SHELLCONFIG_CONF}"
 if [[ -d "${SHELLCONFIG_CONF_DIR}" ]]; then

@@ -17,13 +17,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 # MA 02110-1301, USA.
 
-if [ -n "$ZSH_VERSION" ]; then
-    if [[ $(zsh --version|cut -d' ' -f2|tr -d .) -le 530 ]]; then
-        printf "%b%s%b\n" "\e[31m" "zsh is too old, so unsupported. Cannot load shellConfig. Use bash instead." "\e[39m"
-    else
-        [[ -f "${HOME}/.shellrc" ]] && source "${HOME}/.shellrc"
-    fi
-fi
+[[ -f "${HOME}/.shellrc" ]] && source "${HOME}/.shellrc"
 
 # Possible to use « Oh My ZSH »
 if [[ -d "${HOME}/.oh-my-zsh" ]]; then

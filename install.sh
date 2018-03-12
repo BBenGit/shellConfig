@@ -90,7 +90,6 @@ enableShellConfig()
     [[ -f .zshrc ]] && mv -f .zshrc .zshrc.old
     [[ -f .profile ]] && mv -f .profile .profile.old
 
-    log ${BLUE} "Creating new links, enabling ShellConfig…"
     ln -sf "${SHELLCONFIG_INSTALLATION_DIR}/bashrc" "${HOME}/.bashrc"
     ln -sf "${SHELLCONFIG_INSTALLATION_DIR}/profile" "${HOME}/.profile"
     ln -sf "${SHELLCONFIG_INSTALLATION_DIR}/zshrc" "${HOME}/.zshrc"
@@ -113,7 +112,6 @@ installOhMyZsh()
 {
     local OHMYZSH_INSTALLATION_DIR="${HOME}/.oh-my-zsh"
     if [[ ! -d "${OHMYZSH_INSTALLATION_DIR}" ]]; then
-        log "${BLUE}" "Cloning oh-my-zsh"
         git clone "${OHMYZSH_GIT_URL}" "${OHMYZSH_INSTALLATION_DIR}" > "${LOGFILE}"
     fi
 }

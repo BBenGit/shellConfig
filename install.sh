@@ -104,12 +104,9 @@ enableShellConfig()
 
 installPowerlineFonts()
 {
-    log "${BLUE}" "Cloning powerline fonts"
     local fonts="$(mktemp -d)"
     git clone "${POWERLINEFONTS_GIT_URL}" "${fonts}" > "${LOGFILE}"
-    log "${BLUE}" "Installing fonts"
     "${fonts}"/install.sh > /dev/null
-    log "${BLUE}" "You can now change your terminal font to any Powerline font."
 }
 
 installOhMyZsh()

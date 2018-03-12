@@ -117,7 +117,7 @@ installOhMyZsh()
     local OHMYZSH_INSTALLATION_DIR="${HOME}/.oh-my-zsh"
     if [[ ! -d "${OHMYZSH_INSTALLATION_DIR}" ]]; then
         log "${BLUE}" "Cloning oh-my-zsh"
-        git clone "${OHMYZSH_GIT_URL}" "${OHMYZSH_INSTALLATION_DIR}" > "${LOGFILE}" 2>&1
+        git clone "${OHMYZSH_GIT_URL}" "${OHMYZSH_INSTALLATION_DIR}" > "${LOGFILE}"
     fi
 }
 

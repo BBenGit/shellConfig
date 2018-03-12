@@ -56,22 +56,9 @@ SRV_1+=(REMOTE_DEST_DIR="/var/www")
 SERVERS+=(${SRV_1[@]})
 CURRENT_SRV+=(${SRV_1[@]})
 
-# Coloration pour les pages de manuel
-declare -x LESS_TERMCAP_mb=$'\E[01;31m'
-declare -x LESS_TERMCAP_md=$'\E[01;31m'
-declare -x LESS_TERMCAP_me=$'\E[0m'
-declare -x LESS_TERMCAP_se=$'\E[0m'
-declare -x LESS_TERMCAP_so=$'\E[01;44;33m'
-declare -x LESS_TERMCAP_ue=$'\E[0m'
-declare -x LESS_TERMCAP_us=$'\E[01;32m'
-
 ## @var EDITOR
 ## @brief Default text editor
 declare -x EDITOR=vim
-
-## @var GNUP_GHOME
-## @brief Path to the directory where GPG file are stored
-declare -x GNUPGHOME="${HOME}/.gnupg"
 
 ## @var GPG_MAIN_KEY
 ## @brief Main GPG Key used by the user
@@ -88,4 +75,4 @@ declare -x CDPATH=${CDPATH}:~/Documents/
 
 ## @var GIT_PROJECTS_DIRECTORY
 ## @brief The directory that contains git projects
-declare -x ls -lGIT_REPOSITORY_FILE="${HOME}/Documents/git-projects.ini"
+declare -x GIT_REPOSITORY_FILE="${HOME}/Documents/git-projects.ini"

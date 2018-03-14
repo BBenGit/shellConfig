@@ -17,8 +17,6 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 # MA 02110-1301, USA.
 
-[[ -f "${HOME}/.shellrc" ]] && source "${HOME}/.shellrc"
-
 # Possible to use « Oh My ZSH »
 if [[ -d "${HOME}/.oh-my-zsh" ]]; then
     ZSH_THEME="agnoster"
@@ -28,3 +26,5 @@ if [[ -d "${HOME}/.oh-my-zsh" ]]; then
     declare -x ZSH=${HOME}/.oh-my-zsh
     source "${ZSH}"/oh-my-zsh.sh
 fi
+
+[[ -f "${HOME}/.shellrc" ]] && source "${HOME}/.shellrc"

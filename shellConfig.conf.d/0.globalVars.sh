@@ -22,10 +22,10 @@
 declare -x GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
 # Colors for man pages
-declare -x LESS_TERMCAP_mb=$'\E[01;31m'
-declare -x LESS_TERMCAP_md=$'\E[01;31m'
-declare -x LESS_TERMCAP_me=$'\E[0m'
-declare -x LESS_TERMCAP_se=$'\E[0m'
-declare -x LESS_TERMCAP_so=$'\E[01;44;33m'
-declare -x LESS_TERMCAP_ue=$'\E[0m'
-declare -x LESS_TERMCAP_us=$'\E[01;32m'
+LESS_TERMCAP_mb=$'\E[01;31m'
+LESS_TERMCAP_md=$'\E[01;31m'
+LESS_TERMCAP_me=$'\E[0m'
+LESS_TERMCAP_se=$'\E[0m'
+LESS_TERMCAP_so=$'\E[01;44;33m'
+LESS_TERMCAP_ue=$'\E[0m'
+LESS_TERMCAP_us=$'\E[01;32m'

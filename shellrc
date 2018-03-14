@@ -41,14 +41,14 @@ fi
 [[ -f "${SHELLCONFIG_CONF}" ]] && source "${SHELLCONFIG_CONF}"
 if [[ -d "${SHELLCONFIG_CONF_DIR}" ]]; then
     Log ${DEBUG} "Loading shellConfig…"
-    for file in "${SHELLCONFIG_CONF_DIR}"/*; do
+    for file in "${SHELLCONFIG_CONF_DIR}"/*.sh; do
         source "${file}"
     done
 fi
 
 # The external config files
 if [[ -d ${SHELLCONFIG_EXTERNAL_DIR} ]]; then
-    for file in "${SHELLCONFIG_EXTERNAL_DIR}"/*; do
+    for file in "${SHELLCONFIG_EXTERNAL_DIR}"/*.sh; do
         source "${file}"
     done
 fi

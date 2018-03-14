@@ -19,6 +19,7 @@
 
 alias gsb="git status -sb"
 alias gst="git status"
+alias gs="gst"
 alias ga="git add"
 
 alias gp="git push"
@@ -43,6 +44,7 @@ alias gptag="git push --tags"
 alias gltag="git tag --list -n"
 alias grtags="git tag $2 $1; git push --tags; git tag -d $1; git push origin :refs/tags/$1"
 
+alias grsoft="git reset --soft"
 alias greset="git reset --hard"
 
 alias gc='git commit -v'

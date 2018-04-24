@@ -17,17 +17,6 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 # MA 02110-1301, USA.
 
-index=$(getArrayOffset)
-server_len=${#SERVERS[@]}
-for (( index; index < server_len; index+=8 ))
-do
-    cmd=$(cut -d'=' -f2 <<< "${SERVERS[$index]}")
-    port=$(cut -d'=' -f2 <<< "${SERVERS[$index+1]}")
-    user=$(cut -d'=' -f2 <<< "${SERVERS[$index+2]}")
-    host=$(cut -d'=' -f2 <<< "${SERVERS[$index+3]}")
-    alias ${cmd}="ssh ${user}@${host} -p ${port}"
-done
-
 ## @fn sshChangePassword
 ## @brief Change SSH key password
 ## @param private key files
@@ -36,5 +25,3 @@ sshChangePassword()
     local input="${1}"
 	ssh-keygen -f "${input}" -p
 }
-
-unset index server_len

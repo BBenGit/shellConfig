@@ -26,11 +26,11 @@ declare -r OUT="/dev/stdout"
 
 ## @var LIBSHELL_INSTALLATION_DIR
 ## @brief The directory that will server libshell files
-declare -r LIBSHELL_INSTALLATION_DIR="${HOME}/.local/bin/libShell"
+declare -r LIBSHELL_INSTALLATION_DIR="${HOME}/.local/lib/libShell"
 
 ## @var SHELLCONFIG_INSTALLATION_DIR
 ## @brief The directory that will serve shellConfig files
-declare -r SHELLCONFIG_INSTALLATION_DIR="${HOME}/.local/share/shellConfig"
+declare -r SHELLCONFIG_INSTALLATION_DIR="${HOME}/.local/lib/shellConfig"
 
 ## @var LIBSHELL_GIT_URL
 ## @brief libShell remote repository

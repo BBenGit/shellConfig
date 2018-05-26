@@ -25,7 +25,7 @@
 ## @attention Use content of CURRENT_SRV variable
 fromServer () {
     local index=$(getArrayOffset)
-    syncServer "$(cut -d'=' -f2 <<< ${CURRENT_SRV[${index}+4]})" "$(cut -d'=' -f2 <<< ${CURRENT_SRV[${index}+5]})"
+    syncServer "$(cut -d'=' -f2 <<< ${CURRENT_SRV[${index}+1]})" "$(cut -d'=' -f2 <<< ${CURRENT_SRV[${index}+2]})"
 }
 
 ## @fn toServer
@@ -33,7 +33,7 @@ fromServer () {
 ## @attention Use content of CURRENT_SRV variable
 toServer () {
     local index=$(getArrayOffset)
-    syncServer "$(cut -d'=' -f2 <<< ${CURRENT_SRV[${index}+6]})" "$(cut -d'=' -f2 <<< ${CURRENT_SRV[${index}+7]})"
+    syncServer "$(cut -d'=' -f2 <<< ${CURRENT_SRV[${index}+3]})" "$(cut -d'=' -f2 <<< ${CURRENT_SRV[${index}+4]})"
 }
 
 ## @fn syncServer
@@ -45,14 +45,7 @@ syncServer () {
     local src="${1}"
     local dest="${2}"
     local index=$(getArrayOffset)
-    if test "${src}" && "${dest}"; then
-        port=$(cut -d'=' -f2 <<< "${CURRENT_SRV[${index}+1]}")
-        user=$(cut -d'=' -f2 <<< "${CURRENT_SRV[${index}+2]}")
-        host=$(cut -d'=' -f2 <<< "${CURRENT_SRV[${index}+3]}")
-        rsync -avz -e "ssh -p ${port}" "${user}"@"${host}":"${src}" "${dest}"
-    else
-        Log ${ERROR} "One parameter is missing. src : ${src}; dest : ${dest}"
-    fi
+    host=$(cut -d'=' -f2 <<< "${CURRENT_SRV[${index}]}")
+    rsync -avh ${host}:${src} ${dest}
 }
-
 

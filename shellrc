@@ -17,7 +17,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 # MA 02110-1301, USA.
 
-declare LIBSHELL_DIR="${HOME}/.local/bin/libShell"
+declare LIBSHELL_DIR="${HOME}/.local/lib/libShell"
 declare SHELLCONFIG_CONF="${HOME}/.shellConfig.conf"
 declare SHELLCONFIG_CONF_DIR="${HOME}/.shellConfig"
 declare SHELLCONFIG_EXTERNAL_DIR="${HOME}/.shellConfig.external"
@@ -27,7 +27,6 @@ if [[ -e "${LIBSHELL_DIR}/libShell.sh" ]]; then
     source "${LIBSHELL_DIR}/libShell.sh"
 else
     echo "\e[31mERR : libShell must be installed under $(dirname ${LIBSHELL_DIR}) directory !\e[39m"
-    exit 1
 fi
 
 # The config files

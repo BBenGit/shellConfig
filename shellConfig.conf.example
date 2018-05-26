@@ -44,10 +44,6 @@ declare -a CURRENT_SRV=()
 
 ## @var The first server
 declare -a SRV_1=()
-SRV_1+=(NAME="srv")
-SRV_1+=(SSH_PORT=22)
-SRV_1+=(USERNAME="user")
-SRV_1+=(DOMAIN="domain.tld")
 SRV_1+=(REMOTE_SRC_DIR="/var/archives")
 SRV_1+=(LOCAL_DEST_DIR="/home/${USER}/")
 SRV_1+=(LOCAL_SRC_DIR="/home/${USER}/server")

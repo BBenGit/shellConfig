@@ -34,11 +34,11 @@ declare -r SHELLCONFIG_INSTALLATION_DIR="${HOME}/.local/lib/shellConfig"
 
 ## @var LIBSHELL_GIT_URL
 ## @brief libShell remote repository
-declare -r LIBSHELL_GIT_URL="https://framagit.org/guilieb/libShell.git"
+declare -r LIBSHELL_GIT_URL="https://code.guillaume-bernard.fr/guilieb/libShell.git"
 
 ## @var SHELLCONFIG_GIT_URL
 ## @brief shellconfig remote repository
-declare -r SHELLCONFIG_GIT_URL="https://framagit.org/guilieb/shellConfig.git"
+declare -r SHELLCONFIG_GIT_URL="https://code.guillaume-bernard.fr/guilieb/shellConfig.git"
 
 ## @var POWERLINEFONTS_GIT_URL
 ## @brief Powerline Fonts remote repository

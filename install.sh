@@ -125,7 +125,7 @@ usage()
                    [--powerline-fonts]
                    [--shell-config]
                    [--use-shell-config]
-                   [-all]
+                   [--all]
 
         --libshell: install LibShell in the user's current home directory
 

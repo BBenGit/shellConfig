@@ -31,7 +31,7 @@ eval "$(dircolors -b)"
 importShellConfigSetupFile() {
 	local target="${1}"
 	if [[ -f "${target}" ]]; then
-		ln -s "${target}" "${SHELLCONFIG_CONF}"
+		ln -sf "${target}" "${SHELLCONFIG_CONF}"
 	else
 		Log ${ERROR} "Configuration file : ${target} not found."
 	fi
@@ -42,7 +42,7 @@ importShellConfigSetupFile() {
 importShellConfigExternalDirectory() {
     local target="${1}"
     if [[ -d "${target}" ]]; then
-        ln -s "${target}" "${SHELLCONFIG_EXTERNAL_DIR}"
+        ln -sf "${target}" "${SHELLCONFIG_EXTERNAL_DIR}"
     else
         Log ${ERROR} "External scripts directory not found."
     fi

@@ -32,6 +32,10 @@ declare -r LIBSHELL_INSTALLATION_DIR="${HOME}/.local/lib/libShell"
 ## @brief The directory that will serve shellConfig files
 declare -r SHELLCONFIG_INSTALLATION_DIR="${HOME}/.local/lib/shellConfig"
 
+## @var OHMYZSH_INSTALLATION_DIR
+## @brief The OhMyZsh project
+declare -r OHMYZSH_INSTALLATION_DIR="${HOME}/.oh-my-zsh"
+
 ## @var LIBSHELL_GIT_URL
 ## @brief libShell remote repository
 declare -r LIBSHELL_GIT_URL="https://code.guillaume-bernard.fr/guilieb/libShell.git"
@@ -69,43 +73,20 @@ log()
     printf "%b%s%b\n" ${color} "${msg}" ${NORMAL}
 }
 
-# Installation of libShell, or update an existing installation
-installLibShell()
+installGitComponent()
 {
-    if [[ ! -d "${LIBSHELL_INSTALLATION_DIR}" ]]; then
-        log "${YELLOW}" "    → libShell not found. Cloning…"
-        git clone "${LIBSHELL_GIT_URL}" "${LIBSHELL_INSTALLATION_DIR}" &>> "${LOGFILE}"
-    else
-        log "${YELLOW}" "    → libShell already installed. Updating…"
-        git --git-dir="${LIBSHELL_INSTALLATION_DIR}/.git" \
-            --work-tree="${LIBSHELL_INSTALLATION_DIR}" \
-            pull origin master &>> "${LOGFILE}"
-    fi
-}
 
-installShellConfig()
-{
-    if [[ ! -d "${SHELLCONFIG_INSTALLATION_DIR}" ]]; then
-        log "${YELLOW}" "    → shellConfig not found. Cloning…"
-        git clone "${SHELLCONFIG_GIT_URL}" "${SHELLCONFIG_INSTALLATION_DIR}" &>> "${LOGFILE}"
+    local component="${1}"
+    local component_url="${component^^}_GIT_URL"
+    local installation_dir="${component^^}_INSTALLATION_DIR"
+    
+    if [[ ! -d "${!installation_dir}" ]]; then
+        log "${YELLOW}" "    → ${component} not found. Cloning…"
+        git clone "${!component_url}" "${!installation_dir}" &>> "${LOGFILE}"
     else
-        log "${YELLOW}" "    → shellConfig already installed. Updating…"
-        git --git-dir="${SHELLCONFIG_INSTALLATION_DIR}/.git" \
-            --work-tree="${SHELLCONFIG_INSTALLATION_DIR}" \
-            pull origin master &>> "${LOGFILE}"
-    fi
-}
-
-installOhMyZsh()
-{
-    local OHMYZSH_INSTALLATION_DIR="${HOME}/.oh-my-zsh"
-    if [[ ! -d "${OHMYZSH_INSTALLATION_DIR}" ]]; then
-        log "${YELLOW}" "    → Oh My Zsh not found. Cloning…"
-        git clone "${OHMYZSH_GIT_URL}" "${OHMYZSH_INSTALLATION_DIR}" &>> "${LOGFILE}"
-    else
-        log "${YELLOW}" "    → Oh My Zsh already installed. Updating…"
-        git --git-dir="${OHMYZSH_INSTALLATION_DIR}/.git" \
-            --work-tree="${OHMYZSH_INSTALLATION_DIR}" \
+        log "${YELLOW}" "    → ${component} already installed. Updating…"
+        git --git-dir="${!installation_dir}/.git" \
+            --work-tree="${!installation_dir}" \
             pull origin master &>> "${LOGFILE}"
     fi
 }
@@ -142,29 +123,28 @@ enableShellConfig()
 
 usage()
 {
-    echo "
-        install.sh [-h] [--help]
+    echo -e "
+USAGE:
+        $(basename ${0}) [-h] [--help]
                    [--libshell]
                    [--oh-my-zsh]
                    [--powerline-fonts]
                    [--shell-config]
-                   [--use-shell-config]
                    [--all]
 
-        --libshell: install LibShell in the user's current home directory
+        ${YELLOW}--libshell${NORMAL}: install LibShell in the user's current home directory
 
-        --oh-my-zsh: install Oh-My-ZSH in the user's current home directory. In
+        ${YELLOW}--oh-my-zsh${NORMAL}: install Oh-My-ZSH in the user's current home directory. In
                      order to run properly, you must install zsh.
 
-        --powerline-fonts: install powerline fonts for the current user
+        ${YELLOW}--powerline-fonts${NORMAL}: install powerline fonts for the current user
 
-        --shell-config: install ShellConfig on the system. Implies installing
-                        libShell as well.
+        ${YELLOW}--shell-config${NORMAL}: install ShellConfig on the system. Implies installing
+                        libShell as well. It enables ShellConfig default 
+                        configuration (replaces any custom .profile, .bashrc 
+                        or .zshrc)
 
-        --use-shell-config: enable ShellConfig default configuration (replaces
-                            any custom .profile, .bashrc or .zshrc
-
-        --all: install libShell, Powerline fonts, ShellConfig and OhMyZsh.
+        ${YELLOW}--all${NORMAL}: install libShell, Powerline fonts, ShellConfig and OhMyZsh.
     "
     exit 0
 }
@@ -175,8 +155,14 @@ log "${GREEN}" "shellConfig installation process. Components will be installed�
 log "${GREEN}" "Output is located in \"${LOGFILE}\""
 
 if [[ ! -x "$(which git)" ]]; then
-    log "${RED}" "ERR : git must be installed"
+    log "${RED}" "ERR: git must be installed"
     exit 1
+fi
+
+if [[ $# -eq 0 ]] ; then
+    log "${RED}" "ERR: no argument provided"
+    usage
+    exit 0 
 fi
 
 while true ; do
@@ -197,15 +183,11 @@ while true ; do
             declare INSTALL_SHELL_CONFIG=true
             declare INSTALL_LIBSHELL=true
             ;;
-        --use-shell-config)
-            declare USE_SHELL_CONFIG=true
-            ;;
         --all)
             declare INSTALL_LIBSHELL=true
             declare INSTALL_OH_MY_ZSH=true
             declare INSTALL_POWERLINE=true
             declare INSTALL_SHELL_CONFIG=true
-            declare USE_SHELL_CONFIG=true
             ;;
         --*)
             echo "Argument invalide -- ${1}"
@@ -221,31 +203,23 @@ done
 
 if [[ ${INSTALL_LIBSHELL} = true ]]; then
     log ${BLUE} "Instaling LibShell…"
-    installLibShell
+    installGitComponent libShell
 fi
 
 if [[ ${INSTALL_OH_MY_ZSH} = true ]]; then
     log ${BLUE} "Installing Oh-My-Zsh…"
-    installOhMyZsh
+    installGitComponent OhMyZsh
 fi
 
 if [[ ${INSTALL_SHELL_CONFIG} = true ]]; then
     log ${BLUE} "Installing ShellConfig…"
-    installShellConfig
+    installGitComponent shellConfig
+    enableShellConfig
 fi
 
 if [[ ${INSTALL_POWERLINE} = true ]]; then
     log ${BLUE} "Installing Powerline fonts…"
     installPowerlineFonts
-fi
-
-if [[ ${USE_SHELL_CONFIG} = true ]]; then
-    if [[ ${INSTALL_SHELL_CONFIG} = true ]]; then
-        log ${BLUE} "Enabling ShellConfig for your system…"
-        enableShellConfig
-    else
-        log ${RED} "You cannot use ShellConfig without installing it."
-    fi
 fi
 
 exit 0

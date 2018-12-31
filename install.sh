@@ -54,9 +54,13 @@ declare -r LOGFILE="$(mktemp --suffix=shellConfigInstallLog)"
 
 # Colors
 declare -r NORMAL="\e[39m"
+declare -r BLACK="\e[30m"
 declare -r RED="\e[31m"
-declare -r BLUE="\e[34m"
 declare -r GREEN="\e[32m"
+declare -r YELLOW="\e[33m"
+declare -r BLUE="\e[34m"
+declare -r MAGENTA="\e[35m"
+declare -r CYAN="\e[36m"
 
 log()
 {
@@ -69,18 +73,52 @@ log()
 installLibShell()
 {
     if [[ ! -d "${LIBSHELL_INSTALLATION_DIR}" ]]; then
-        git clone "${LIBSHELL_GIT_URL}" "${LIBSHELL_INSTALLATION_DIR}" > "${LOGFILE}" 2&>1
+        log "${YELLOW}" "    → libShell not found. Cloning…"
+        git clone "${LIBSHELL_GIT_URL}" "${LIBSHELL_INSTALLATION_DIR}" &>> "${LOGFILE}"
     else
-        cd ${LIBSHELL_INSTALLATION_DIR} && git pull origin master > "${LOGFILE}" 2&>1 && cd ${OLDPWD}
+        log "${YELLOW}" "    → libShell already installed. Updating…"
+        git --git-dir="${LIBSHELL_INSTALLATION_DIR}/.git" \
+            --work-tree="${LIBSHELL_INSTALLATION_DIR}" \
+            pull origin master &>> "${LOGFILE}"
     fi
 }
 
 installShellConfig()
 {
     if [[ ! -d "${SHELLCONFIG_INSTALLATION_DIR}" ]]; then
-        git clone "${SHELLCONFIG_GIT_URL}" "${SHELLCONFIG_INSTALLATION_DIR}" > "${LOGFILE}" 2&>1
+        log "${YELLOW}" "    → shellConfig not found. Cloning…"
+        git clone "${SHELLCONFIG_GIT_URL}" "${SHELLCONFIG_INSTALLATION_DIR}" &>> "${LOGFILE}"
     else
-        cd ${SHELLCONFIG_INSTALLATION_DIR} && git pull origin master > "${LOGFILE}" 2&>1 && cd ${OLDPWD}
+        log "${YELLOW}" "    → shellConfig already installed. Updating…"
+        git --git-dir="${SHELLCONFIG_INSTALLATION_DIR}/.git" \
+            --work-tree="${SHELLCONFIG_INSTALLATION_DIR}" \
+            pull origin master &>> "${LOGFILE}"
+    fi
+}
+
+installOhMyZsh()
+{
+    local OHMYZSH_INSTALLATION_DIR="${HOME}/.oh-my-zsh"
+    if [[ ! -d "${OHMYZSH_INSTALLATION_DIR}" ]]; then
+        log "${YELLOW}" "    → Oh My Zsh not found. Cloning…"
+        git clone "${OHMYZSH_GIT_URL}" "${OHMYZSH_INSTALLATION_DIR}" &>> "${LOGFILE}"
+    else
+        log "${YELLOW}" "    → Oh My Zsh already installed. Updating…"
+        git --git-dir="${OHMYZSH_INSTALLATION_DIR}/.git" \
+            --work-tree="${OHMYZSH_INSTALLATION_DIR}" \
+            pull origin master &>> "${LOGFILE}"
+    fi
+}
+
+installPowerlineFonts()
+{
+    if ! fc-list | grep "Ubuntu Mono" &>> /dev/null; then
+        log "${YELLOW}" "    → Powerline fonts not found. Cloning…"
+        local fonts="$(mktemp -d)"
+        git clone "${POWERLINEFONTS_GIT_URL}" "${fonts}" &>> "${LOGFILE}"
+        "${fonts}"/install.sh &>> "${LOGFILE}"
+    else
+        log "${YELLOW}" "    → Powerline fonts already installed. Nothing to do."
     fi
 }
 
@@ -99,21 +137,6 @@ enableShellConfig()
     local SHELLCONFIG_CONF_DIR="${HOME}/.shellConfig"
     if [[ ! -L "${SHELLCONFIG_CONF_DIR}" && "$(readlink ${SHELLCONFIG_CONF_DIR})" != ${SHELLCONFIG_INSTALLATION_DIR}/shellConfig.conf.d ]]; then
         ln -sf "${SHELLCONFIG_INSTALLATION_DIR}/shellConfig.conf.d" "${SHELLCONFIG_CONF_DIR}"
-    fi
-}
-
-installPowerlineFonts()
-{
-    local fonts="$(mktemp -d)"
-    git clone "${POWERLINEFONTS_GIT_URL}" "${fonts}" > "${LOGFILE}" 2&>1
-    "${fonts}"/install.sh > "${LOGFILE}" 2&>1
-}
-
-installOhMyZsh()
-{
-    local OHMYZSH_INSTALLATION_DIR="${HOME}/.oh-my-zsh"
-    if [[ ! -d "${OHMYZSH_INSTALLATION_DIR}" ]]; then
-        git clone "${OHMYZSH_GIT_URL}" "${OHMYZSH_INSTALLATION_DIR}" > "${LOGFILE}" 2&>1
     fi
 }
 
@@ -206,14 +229,14 @@ if [[ ${INSTALL_OH_MY_ZSH} = true ]]; then
     installOhMyZsh
 fi
 
-if [[ ${INSTALL_POWERLINE} = true ]]; then
-    log ${BLUE} "Installing Powerline fonts…"
-    installPowerlineFonts
-fi
-
 if [[ ${INSTALL_SHELL_CONFIG} = true ]]; then
     log ${BLUE} "Installing ShellConfig…"
     installShellConfig
+fi
+
+if [[ ${INSTALL_POWERLINE} = true ]]; then
+    log ${BLUE} "Installing Powerline fonts…"
+    installPowerlineFonts
 fi
 
 if [[ ${USE_SHELL_CONFIG} = true ]]; then

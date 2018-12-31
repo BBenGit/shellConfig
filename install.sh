@@ -93,7 +93,7 @@ installGitComponent()
 
 installPowerlineFonts()
 {
-    if ! fc-list | grep "Ubuntu Mono" &>> /dev/null; then
+    if ! fc-list | grep "Powerline" &>> /dev/null; then
         log "${YELLOW}" "    → Powerline fonts not found. Cloning…"
         local fonts="$(mktemp -d)"
         git clone "${POWERLINEFONTS_GIT_URL}" "${fonts}" &>> "${LOGFILE}"
@@ -105,7 +105,7 @@ installPowerlineFonts()
 
 enableShellConfig()
 {
-    log ${BLUE} "Saving: .profile, .bashrc, .zshrc. Adding .old to their names"
+    log ${YELLOW} "    → saving: .profile, .bashrc, .zshrc. Adding .old to their names"
     [[ -f .bashrc ]] && mv -f .bashrc .bashrc.old
     [[ -f .zshrc ]] && mv -f .zshrc .zshrc.old
     [[ -f .profile ]] && mv -f .profile .profile.old

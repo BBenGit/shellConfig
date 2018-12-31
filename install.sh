@@ -56,30 +56,31 @@ declare -r LOGFILE="$(mktemp --suffix=shellConfigInstallLog)"
 declare -r NORMAL="\e[39m"
 declare -r RED="\e[31m"
 declare -r BLUE="\e[34m"
+declare -r GREEN="\e[32m"
 
 log()
 {
     local color="${1}"
     local msg="${2}"
-    echo -e "${color} ${msg} ${NORMAL}" > "${OUT}"
+    printf "%b%s%b\n" ${color} "${msg}" ${NORMAL}
 }
 
 # Installation of libShell, or update an existing installation
 installLibShell()
 {
     if [[ ! -d "${LIBSHELL_INSTALLATION_DIR}" ]]; then
-        git clone "${LIBSHELL_GIT_URL}" "${LIBSHELL_INSTALLATION_DIR}" > "${LOGFILE}"
+        git clone "${LIBSHELL_GIT_URL}" "${LIBSHELL_INSTALLATION_DIR}" > "${LOGFILE}" 2&>1
     else
-        cd ${LIBSHELL_INSTALLATION_DIR} && git pull origin master > "${LOGFILE}" && cd ${OLDPWD}
+        cd ${LIBSHELL_INSTALLATION_DIR} && git pull origin master > "${LOGFILE}" 2&>1 && cd ${OLDPWD}
     fi
 }
 
 installShellConfig()
 {
     if [[ ! -d "${SHELLCONFIG_INSTALLATION_DIR}" ]]; then
-        git clone "${SHELLCONFIG_GIT_URL}" "${SHELLCONFIG_INSTALLATION_DIR}" > "${LOGFILE}"
+        git clone "${SHELLCONFIG_GIT_URL}" "${SHELLCONFIG_INSTALLATION_DIR}" > "${LOGFILE}" 2&>1
     else
-        cd ${SHELLCONFIG_INSTALLATION_DIR} && git pull origin master > "${LOGFILE}" && cd ${OLDPWD}
+        cd ${SHELLCONFIG_INSTALLATION_DIR} && git pull origin master > "${LOGFILE}" 2&>1 && cd ${OLDPWD}
     fi
 }
 
@@ -104,15 +105,15 @@ enableShellConfig()
 installPowerlineFonts()
 {
     local fonts="$(mktemp -d)"
-    git clone "${POWERLINEFONTS_GIT_URL}" "${fonts}" > "${LOGFILE}"
-    "${fonts}"/install.sh > /dev/null
+    git clone "${POWERLINEFONTS_GIT_URL}" "${fonts}" > "${LOGFILE}" 2&>1
+    "${fonts}"/install.sh > "${LOGFILE}" 2&>1
 }
 
 installOhMyZsh()
 {
     local OHMYZSH_INSTALLATION_DIR="${HOME}/.oh-my-zsh"
     if [[ ! -d "${OHMYZSH_INSTALLATION_DIR}" ]]; then
-        git clone "${OHMYZSH_GIT_URL}" "${OHMYZSH_INSTALLATION_DIR}" > "${LOGFILE}"
+        git clone "${OHMYZSH_GIT_URL}" "${OHMYZSH_INSTALLATION_DIR}" > "${LOGFILE}" 2&>1
     fi
 }
 
@@ -147,6 +148,9 @@ usage()
 
 
 ### Main function
+log "${GREEN}" "shellConfig installation process. Components will be installed…"
+log "${GREEN}" "Output is located in \"${LOGFILE}\""
+
 if [[ ! -x "$(which git)" ]]; then
     log "${RED}" "ERR : git must be installed"
     exit 1

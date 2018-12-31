@@ -1,13 +1,14 @@
 # shellConfig
 
-shellConfig is a tool that automatically prepares your environment, both on **zsh** and **bash**. It gives you a set of pre-configured aliases, functions and others.
+shellConfig is a tool that automatically configures your shell environment. It works on both **zsh** (> 5.1) and **bash**. It offers you some aliases, useful functions by installing *[libShell](https://code.guillaume-bernard.fr/guilieb/libShell)*.
+
+It can automatically install [Powerline fonts](https://github.com/powerline/fonts), as long as [Oh-My-Zsh](https://ohmyz.sh/) if you use Zsh.
 
 # How to install
 
 ## Get shellConfig
 
-The first step in the installation process is to get the installer from the Web. This is a shell script that lets you install what you like. It need to obtain the executable rights if you want to start it implicitely.
-
+The first step in the installation process is to get the installer from the Web. This is a shell script that lets you install what you want. In order to execute it, give it the proper rights, using *chmod*, like as follow:
 ```bash
 curl -o install.sh https://code.guillaume-bernard.fr/guilieb/shellConfig/raw/master/install.sh
 chmod +x ./install.sh
@@ -15,15 +16,15 @@ chmod +x ./install.sh
 
 ## Install
 
-The installer lets you install [libShell](https://code.guillaume-bernard.fr/guilieb/libShell), [OhMyZsh](https://ohmyz.sh/), [PowerlineFonts](https://github.com/powerline/fonts), [shellConfig](https://code.guillaume-bernard.fr/guilieb/shellConfig). You can decide not to use this latest. The option “--all“ does everything for you.
+Once retrieved, you have the following options:
 
 ```bash
+USAGE:
         install.sh [-h] [--help]
                    [--libshell]
                    [--oh-my-zsh]
                    [--powerline-fonts]
                    [--shell-config]
-                   [--use-shell-config]
                    [--all]
 
         --libshell: install LibShell in the user's current home directory
@@ -34,22 +35,29 @@ The installer lets you install [libShell](https://code.guillaume-bernard.fr/guil
         --powerline-fonts: install powerline fonts for the current user
 
         --shell-config: install ShellConfig on the system. Implies installing
-                        libShell as well.
-
-        --use-shell-config: enable ShellConfig default configuration (replaces
-                            any custom .profile, .bashrc or .zshrc
+                        libShell as well. It enables ShellConfig default 
+                        configuration (replaces any custom .profile, .bashrc 
+                        or .zshrc)
 
         --all: install libShell, Powerline fonts, ShellConfig and OhMyZsh.
 ```
 
+## Reload the shell
+
+As it’s an installation process affecting the shell itself, you’re encouraged to reload it manually, using either `source ~/.bashrc` or `source ~/.zshrc`, etc.
+
 ## Configure
 
-Once installed, please reload you shell. Then you’ll be able to import a directory containing scripts of your own. This is made possible with the command **importShellConfigExternalDirectory** with accepts one argument: the path to the directory containing your scripts.
+Even if you can use shellConfig without any configuration, to access its full potential, you’re likely to use the two following commands:
+1. **importShellConfigExternalDirectory**: Import and use your own shell scripts directory.
+2. **importShellConfigSetupFile**: Use your custom configuration file.
+
+The first one allow you to keep your personnal shell scripts as before. You simply have to call the command with the path containing your scripts. Once done, each time a new shell is loaded, so are your personnal functions and variables located in that directory. Here’s an example of my own:
 ```bash
 importShellConfigExternalDirectory ~/Documents/Informatique/Configuration/Scripts\ externes
 ```
 
-In order to benefit from all the available possibilities, you can also import a shellConfig configuration file. You have an example in this repository, called **shellConfig.conf.example**. Feel free to copy and modify it. You can import it via the **importShellConfigSetupFile** command, giving the path to your file as first argument.
+Then order to benefit from everything in shellConfig, you can also import a shellConfig configuration file. You have an example in this repository, called **shellConfig.conf.example**. Feel free to copy and modify it. You can import it via the **importShellConfigSetupFile** command, giving the path to your file as first argument.
 ```
 importShellConfigSetupFile ~/Documents/Informatique/Configuration/local/shellconfig.vars
 ```
@@ -71,7 +79,7 @@ importShellConfigExternalDirectory ~/Documents/Informatique/Configuration/Script
 
 # How to customize
 
-If you decide to enable shellConfig, you can change a few files :
-* bashrc if you use bash;
-* zshrc if you use zsh;
-* shellrc if you want to apply a configuration to both.
+If you decide to enable shellConfig and change a few things, you can! Keep in mind that the easiest thing is to modify the following files: 
+* ~/.bashrc if you use bash;
+* ~/.zshrc if you use zsh;
+* ~/.shellrc if you want to apply a configuration to both shells

@@ -35,15 +35,15 @@ enableLogger ${ERROR} ${STDOUT}
 ## - SSH_PORT
 ## - USERNAME
 ## - DOMAIN
-declare -a SERVERS=()
+typeset -a SERVERS=()
 
 ## @var CURRENT_SRV
 ## @brief The current server.
 ## @details The server to use as default some functions.
-declare -a CURRENT_SRV=()
+typeset -a CURRENT_SRV=()
 
 ## @var The first server
-declare -a SRV_1=()
+typeset -a SRV_1=()
 SRV_1+=(REMOTE_SRC_DIR="/var/archives")
 SRV_1+=(LOCAL_DEST_DIR="/home/${USER}/")
 SRV_1+=(LOCAL_SRC_DIR="/home/${USER}/server")
@@ -54,8 +54,8 @@ CURRENT_SRV+=(${SRV_1[@]})
 
 ## @var EDITOR
 ## @brief Default text editor
-declare -x EDITOR=vim
+typeset -x EDITOR=vim
 
 ## @var CDPATH
 ## @brief CDPATH extension
-declare -x CDPATH=${CDPATH}:~/Documents/
+typeset -x CDPATH=${CDPATH}:~/Documents/

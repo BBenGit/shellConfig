@@ -17,10 +17,10 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 # MA 02110-1301, USA.
 
-declare -r LIBSHELL_DIR="${HOME}/.local/lib/libShell"
-declare -r SHELLCONFIG_CONF="${HOME}/.shellConfig.conf"
-declare -r SHELLCONFIG_CONF_DIR="${HOME}/.shellConfig"
-declare -r SHELLCONFIG_CUSTOM_SCRIPTS_DIR="${HOME}/.shellConfig.external"
+typeset -r LIBSHELL_DIR="${HOME}/.local/lib/libShell"
+typeset -r SHELLCONFIG_CONF="${HOME}/.shellConfig.conf"
+typeset -r SHELLCONFIG_CONF_DIR="${HOME}/.shellConfig"
+typeset -r SHELLCONFIG_CUSTOM_SCRIPTS_DIR="${HOME}/.shellConfig.external"
 
 # Load the libShell framework
 if [ -e "${LIBSHELL_DIR}/libShell.sh" ]; then

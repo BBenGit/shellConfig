@@ -22,49 +22,49 @@
 
 ## @var OUT
 ## @brief Output for logging
-declare -r OUT="/dev/stdout"
+typeset -r OUT="/dev/stdout"
 
 ## @var LIBSHELL_INSTALLATION_DIR
 ## @brief The directory that will server libshell files
-declare -r LIBSHELL_INSTALLATION_DIR="${HOME}/.local/lib/libShell"
+typeset -r LIBSHELL_INSTALLATION_DIR="${HOME}/.local/lib/libShell"
 
 ## @var SHELLCONFIG_INSTALLATION_DIR
 ## @brief The directory that will serve shellConfig files
-declare -r SHELLCONFIG_INSTALLATION_DIR="${HOME}/.local/lib/shellConfig"
+typeset -r SHELLCONFIG_INSTALLATION_DIR="${HOME}/.local/lib/shellConfig"
 
 ## @var OHMYZSH_INSTALLATION_DIR
 ## @brief The OhMyZsh project
-declare -r OHMYZSH_INSTALLATION_DIR="${HOME}/.oh-my-zsh"
+typeset -r OHMYZSH_INSTALLATION_DIR="${HOME}/.oh-my-zsh"
 
 ## @var LIBSHELL_GIT_URL
 ## @brief libShell remote repository
-declare -r LIBSHELL_GIT_URL="https://code.guillaume-bernard.fr/guilieb/libShell.git"
+typeset -r LIBSHELL_GIT_URL="https://code.guillaume-bernard.fr/guilieb/libShell.git"
 
 ## @var SHELLCONFIG_GIT_URL
 ## @brief shellconfig remote repository
-declare -r SHELLCONFIG_GIT_URL="https://code.guillaume-bernard.fr/guilieb/shellConfig.git"
+typeset -r SHELLCONFIG_GIT_URL="https://code.guillaume-bernard.fr/guilieb/shellConfig.git"
 
 ## @var POWERLINEFONTS_GIT_URL
 ## @brief Powerline Fonts remote repository
-declare -r POWERLINEFONTS_GIT_URL="https://github.com/powerline/fonts.git"
+typeset -r POWERLINEFONTS_GIT_URL="https://github.com/powerline/fonts.git"
 
 ## @var OHMYZSH_GIT_URL
 ## @brief OhMyZsh remote repository
-declare -r OHMYZSH_GIT_URL="https://github.com/robbyrussell/oh-my-zsh.git"
+typeset -r OHMYZSH_GIT_URL="https://github.com/robbyrussell/oh-my-zsh.git"
 
 ## @var LOGFILE
 ## @brief File used to save git output
-declare -r LOGFILE="$(mktemp --suffix=shellConfigInstallLog)"
+typeset -r LOGFILE="$(mktemp --suffix=shellConfigInstallLog)"
 
 # Colors
-declare -r NORMAL="\e[39m"
-declare -r BLACK="\e[30m"
-declare -r RED="\e[31m"
-declare -r GREEN="\e[32m"
-declare -r YELLOW="\e[33m"
-declare -r BLUE="\e[34m"
-declare -r MAGENTA="\e[35m"
-declare -r CYAN="\e[36m"
+typeset -r NORMAL="\e[39m"
+typeset -r BLACK="\e[30m"
+typeset -r RED="\e[31m"
+typeset -r GREEN="\e[32m"
+typeset -r YELLOW="\e[33m"
+typeset -r BLUE="\e[34m"
+typeset -r MAGENTA="\e[35m"
+typeset -r CYAN="\e[36m"
 
 log()
 {
@@ -165,23 +165,23 @@ while true ; do
             usage
             ;;
         --libshell)
-            declare INSTALL_LIBSHELL=true
+            typeset INSTALL_LIBSHELL=true
             ;;
         --oh-my-zsh)
-            declare INSTALL_OH_MY_ZSH=true
+            typeset INSTALL_OH_MY_ZSH=true
             ;;
         --powerline-fonts)
-            declare INSTALL_POWERLINE=true
+            typeset INSTALL_POWERLINE=true
             ;;
         --shell-config)
-            declare INSTALL_SHELL_CONFIG=true
-            declare INSTALL_LIBSHELL=true
+            typeset INSTALL_SHELL_CONFIG=true
+            typeset INSTALL_LIBSHELL=true
             ;;
         --all)
-            declare INSTALL_LIBSHELL=true
-            declare INSTALL_OH_MY_ZSH=true
-            declare INSTALL_POWERLINE=true
-            declare INSTALL_SHELL_CONFIG=true
+            typeset INSTALL_LIBSHELL=true
+            typeset INSTALL_OH_MY_ZSH=true
+            typeset INSTALL_POWERLINE=true
+            typeset INSTALL_SHELL_CONFIG=true
             ;;
         --*)
             echo "Argument invalide -- ${1}"

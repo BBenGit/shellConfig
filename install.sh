@@ -207,11 +207,11 @@ if [ ! -x "$(which git 2> /dev/null)" ]; then
     fi
 
     # Install git from package manager
-    if [ -x "$(which yum)" ]; then
+    if [ -x "$(which yum 2> /dev/null)" ]; then
         eval "${command} \"yum install -y git | tee ${LOGFILE}\""
-    elif [ -x "$(which dnf)" ]; then
+    elif [ -x "$(which dnf 2> /dev/null)" ]; then
         eval "${command} \"dnf install -y git | tee ${LOGFILE}\""
-    elif [ -x "$(which apt)" ]; then
+    elif [ -x "$(which apt 2> /dev/null)" ]; then
         eval "${command} \"apt update && apt install -y git | tee ${LOGFILE}\""
     else
         exit 1

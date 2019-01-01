@@ -53,8 +53,8 @@ importShellConfigExternalDirectory() {
 updateKit()
 {
     Log ${INFO} "Updating shellConfig and libShell…"
-    git --git-dir="${LIBSHELL_DIR}/.git" --work-tree="${LIBSHELL_DIR}" pull
-    git --git-dir="${SHELLCONFIG_CONF_DIR}/.git" --work-tree="${SHELLCONFIG_CONF_DIR}" pull
+    git --git-dir="${LIBSHELL_DIR}/.git" --work-tree="${LIBSHELL_DIR}" pull origin master
+    git --git-dir="${SHELLCONFIG_CONF_DIR}/.git" --work-tree="${SHELLCONFIG_CONF_DIR}" pull origin master
 }
 
 ## @fn refresh

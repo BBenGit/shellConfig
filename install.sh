@@ -75,7 +75,6 @@ log()
 
 installGitComponent()
 {
-
     local component="${1}"
     local component_url="${component^^}_GIT_URL"
     local installation_dir="${component^^}_INSTALLATION_DIR"
@@ -154,11 +153,6 @@ USAGE:
 log "${GREEN}" "shellConfig installation process. Components will be installed…"
 log "${GREEN}" "Output is located in \"${LOGFILE}\""
 
-if [[ ! -x "$(which git)" ]]; then
-    log "${RED}" "ERR: git must be installed"
-    exit 1
-fi
-
 if [[ $# -eq 0 ]] ; then
     log "${RED}" "ERR: no argument provided"
     usage
@@ -200,6 +194,29 @@ while true ; do
     esac
     shift
 done
+
+if [ ! -x "$(which git 2> /dev/null)" ]; then
+    log "${BLUE}" "git is missing. Will try to install it…"
+
+    # Use sudo, or not
+    printf "%b%s%b" ${MAGENTA} "Use sudo? [y|N] " ${NORMAL}
+    read use_sudo
+    command="su -l -c"
+    if [[ ${use_sudo} =~ (y|Y) ]]; then
+        command="sudo"
+    fi
+
+    # Install git from package manager
+    if [ -x "$(which yum)" ]; then
+        eval "${command} \"yum install -y git | tee ${LOGFILE}\""
+    elif [ -x "$(which dnf)" ]; then
+        eval "${command} \"dnf install -y git | tee ${LOGFILE}\""
+    elif [ -x "$(which apt)" ]; then
+        eval "${command} \"apt update && apt install -y git | tee ${LOGFILE}\""
+    else
+        exit 1
+    fi
+fi
 
 if [[ ${INSTALL_LIBSHELL} = true ]]; then
     log ${BLUE} "Instaling LibShell…"

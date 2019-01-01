@@ -17,11 +17,6 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 # MA 02110-1301, USA.
 
-numlockx_bin="$(which numlockx)"
-if [[ -x "${numlockx_bin}" ]]; then
-    "${numlockx_bin}" on
-fi
- 
 if pgrep gpg-agent; then
 	echo "Starting GPG agent."
 	eval "$(gpg-agent --daemon 2> /dev/null)"

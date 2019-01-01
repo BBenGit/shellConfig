@@ -56,6 +56,6 @@ alias sul="su --login"
 alias clean='find -name "*~" -exec rm {} \;'
 
 # Reset ${HOME} rights to 700 (recursive)
-alias rights="chmod -R go-rwx ${HOME}"
+alias fixMyRights="chmod -R go-rwx ${HOME}"
 
 

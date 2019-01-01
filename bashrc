@@ -21,7 +21,7 @@
 
 # Better auto-complete mode
 if [ -f /etc/bash_completion ]; then
-    . /etc/bash_completion
+    source /etc/bash_completion
 fi
 
 ## @var PS1

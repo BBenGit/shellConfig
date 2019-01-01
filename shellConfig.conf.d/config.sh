@@ -30,7 +30,7 @@ eval "$(dircolors -b)"
 ## @brief Import the shellConfig main setup file to its required location
 importShellConfigSetupFile() {
 	local target="${1}"
-	if [[ -f "${target}" ]]; then
+	if [ -f "${target}" ]; then
 		ln -sf "${target}" "${SHELLCONFIG_CONF}"
 	else
 		Log ${ERROR} "Configuration file : ${target} not found."
@@ -41,7 +41,7 @@ importShellConfigSetupFile() {
 ## @brief Import the directory containing external scripts
 importShellConfigExternalDirectory() {
     local target="${1}"
-    if [[ -d "${target}" ]]; then
+    if [ -d "${target}" ]; then
         ln -sf "${target}" "${SHELLCONFIG_EXTERNAL_DIR}"
     else
         Log ${ERROR} "External scripts directory not found."
@@ -53,8 +53,8 @@ importShellConfigExternalDirectory() {
 updateKit()
 {
     Log ${INFO} "Updating shellConfig and libShell…"
-    cd "$(realpath ${LIBSHELL_DIR})" && git pull && cd "${OLDPWD}"
-    cd "$(realpath ${SHELLCONFIG_CONF_DIR})" && git pull && cd "${OLDPWD}"
+    git --git-dir="${LIBSHELL_DIR}/.git" --work-tree="${LIBSHELL_DIR}" pull
+    git --git-dir="${SHELLCONFIG_CONF_DIR}/.git" --work-tree="${SHELLCONFIG_CONF_DIR}" pull
 }
 
 ## @fn refresh
@@ -62,9 +62,9 @@ updateKit()
 refresh()
 {
     Log ${INFO} "Reloading configuration…"
-    if [ -n "$ZSH_NAME" ]; then
+    if [ -n "${ZSH_NAME}" ]; then
         source "${HOME}/.zshrc"
-    elif [ -n "$BASH_VERSION" ]; then
+    elif [ -n "${BASH_VERSION}" ]; then
         source "${HOME}/.bashrc"
     fi
 }

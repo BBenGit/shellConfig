@@ -17,20 +17,22 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 # MA 02110-1301, USA.
 
-declare LIBSHELL_DIR="${HOME}/.local/lib/libShell"
-declare SHELLCONFIG_CONF="${HOME}/.shellConfig.conf"
-declare SHELLCONFIG_CONF_DIR="${HOME}/.shellConfig"
-declare SHELLCONFIG_EXTERNAL_DIR="${HOME}/.shellConfig.external"
+declare -r LIBSHELL_DIR="${HOME}/.local/lib/libShell"
+declare -r SHELLCONFIG_CONF="${HOME}/.shellConfig.conf"
+declare -r SHELLCONFIG_CONF_DIR="${HOME}/.shellConfig"
+declare -r SHELLCONFIG_CUSTOM_SCRIPTS_DIR="${HOME}/.shellConfig.external"
 
-# Load libShell framework
-if [[ -e "${LIBSHELL_DIR}/libShell.sh" ]]; then
+# Load the libShell framework
+if [ -e "${LIBSHELL_DIR}/libShell.sh" ]; then
     source "${LIBSHELL_DIR}/libShell.sh"
 else
-    echo "\e[31mERR : libShell must be installed under $(dirname ${LIBSHELL_DIR}) directory !\e[39m"
+    printf "\e[31mERR: libShell must be installed under $(dirname ${LIBSHELL_DIR}) directory!\e[39m"
 fi
 
-# The config files
+# Load the shellConfig configuration file
 [[ -f "${SHELLCONFIG_CONF}" ]] && source "${SHELLCONFIG_CONF}"
+
+# Load shellConfig itself
 if [[ -d "${SHELLCONFIG_CONF_DIR}" ]]; then
     Log ${DEBUG} "Loading shellConfig…"
     for file in "${SHELLCONFIG_CONF_DIR}"/*.sh; do
@@ -38,9 +40,9 @@ if [[ -d "${SHELLCONFIG_CONF_DIR}" ]]; then
     done
 fi
 
-# The external config files
-if [[ -d ${SHELLCONFIG_EXTERNAL_DIR} ]]; then
-    for file in "${SHELLCONFIG_EXTERNAL_DIR}"/*.sh; do
+# Load custom scripts
+if [[ -d ${SHELLCONFIG_CUSTOM_SCRIPTS_DIR} ]]; then
+    for file in "${SHELLCONFIG_CUSTOM_SCRIPTS_DIR}"/*.sh; do
         source "${file}"
     done
 fi

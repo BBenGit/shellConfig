@@ -56,19 +56,6 @@ CURRENT_SRV+=(${SRV_1[@]})
 ## @brief Default text editor
 declare -x EDITOR=vim
 
-## @var GPG_MAIN_KEY
-## @brief Main GPG Key used by the user
-declare -x GPG_MAIN_KEY_ID=""
-
-## @var GPG_SUBKEY_IDS
-## @brief Array to store the GPG main key subkey ids
-declare -a GPG_SUBKEY_IDS=()
-GPG_SUBKEY_IDS+=()
-
 ## @var CDPATH
 ## @brief CDPATH extension
 declare -x CDPATH=${CDPATH}:~/Documents/
-
-## @var GIT_PROJECTS_DIRECTORY
-## @brief The directory that contains git projects
-declare -x GIT_REPOSITORY_FILE="${HOME}/Documents/git-projects.ini"

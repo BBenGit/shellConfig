@@ -42,6 +42,7 @@ fi
 
 # Load custom scripts
 if [[ -d ${SHELLCONFIG_CUSTOM_SCRIPTS_DIR} ]]; then
+    Log ${DEBUG} "Loading custom scripts…"
     for file in "${SHELLCONFIG_CUSTOM_SCRIPTS_DIR}"/*.sh; do
         source "${file}"
     done

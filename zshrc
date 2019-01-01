@@ -21,6 +21,7 @@
 
 # Oh-My-Zsh specific configuration
 if [[ -d "${HOME}/.oh-my-zsh" ]]; then
+    Log ${DEBUG} "Loading Oh-My-Zsh…"
     ZSH_THEME="agnoster"
     CASE_SENSITIVE="false"
     HYPHEN_INSENSITIVE="true"

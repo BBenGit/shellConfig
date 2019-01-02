@@ -130,6 +130,7 @@ USAGE:
                    [--powerline-fonts]
                    [--shell-config]
                    [--all]
+                   [--assumedefault]
 
         ${YELLOW}--libshell${NORMAL}: install LibShell in the user's current home directory
 
@@ -144,6 +145,8 @@ USAGE:
                         or .zshrc)
 
         ${YELLOW}--all${NORMAL}: install libShell, Powerline fonts, ShellConfig and OhMyZsh.
+
+        ${YELLOW}--assumedefault${NORMAL}: assume defaults values when there are questions.
     "
     exit 0
 }
@@ -158,6 +161,8 @@ if [[ $# -eq 0 ]] ; then
     usage
     exit 0 
 fi
+
+typeset ASSUME_DEFAULT=false
 
 while true ; do
     case ${1} in
@@ -183,6 +188,9 @@ while true ; do
             typeset INSTALL_POWERLINE=true
             typeset INSTALL_SHELL_CONFIG=true
             ;;
+        --assumedefault)
+            typeset ASSUME_DEFAULT=true
+            ;;
         --*)
             echo "Argument invalide -- ${1}"
             usage
@@ -198,12 +206,15 @@ done
 if [ ! -x "$(which git 2> /dev/null)" ]; then
     log "${BLUE}" "git is missing. Will try to install it…"
 
-    # Use sudo, or not
-    printf "%b%s%b" ${MAGENTA} "Use sudo? [y|N] " ${NORMAL}
-    read use_sudo
     command="su -l -c"
-    if [[ ${use_sudo} =~ (y|Y) ]]; then
-        command="sudo"
+    if [[ ${ASSUME_DEFAULT} = false ]]; then
+        # Use sudo, or not
+        printf "%b%s%b" ${MAGENTA} "Use sudo? [y|N] " ${NORMAL}
+        read use_sudo
+        command="su -l -c"
+        if [[ ${use_sudo} =~ (y|Y) ]]; then
+            command="sudo"
+        fi
     fi
 
     # Install git from package manager

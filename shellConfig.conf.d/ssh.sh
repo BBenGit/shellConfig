@@ -23,5 +23,5 @@
 sshChangePassword()
 {
     local input="${1}"
-	ssh-keygen -f "${input}" -p
+    ssh-keygen -f "${input}" -p
 }

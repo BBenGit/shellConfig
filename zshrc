@@ -17,8 +17,6 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
 # MA 02110-1301, USA.
 
-[[ -f "${HOME}/.shellrc" ]] && source "${HOME}/.shellrc"
-
 # Oh-My-Zsh specific configuration
 if [[ -d "${HOME}/.oh-my-zsh" ]]; then
     Log ${DEBUG} "Loading Oh-My-Zsh…"
@@ -29,4 +27,6 @@ if [[ -d "${HOME}/.oh-my-zsh" ]]; then
     typeset -x ZSH=${HOME}/.oh-my-zsh
     source "${ZSH}"/oh-my-zsh.sh
 fi
+
+[[ -f "${HOME}/.shellrc" ]] && source "${HOME}/.shellrc"
 

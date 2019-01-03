@@ -42,7 +42,7 @@ importShellConfigSetupFile() {
 importShellConfigExternalDirectory() {
     local target="${1}"
     if [ -d "${target}" ]; then
-        ln -sf "${target}" "${SHELLCONFIG_CUSTOM_SCRIPTS_DIR=}"
+        ln -sf "${target}" "${SHELLCONFIG_CUSTOM_SCRIPTS_DIR}"
     else
         Log ${ERROR} "External scripts directory not found."
     fi

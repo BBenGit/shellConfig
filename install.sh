@@ -203,7 +203,7 @@ while true ; do
     shift
 done
 
-if [ ! -x "$(which git 2> /dev/null)" ]; then
+if [[ ! -x "$(which git 2> /dev/null)" ]]; then
     log "${BLUE}" "git is missing. Will try to install it…"
 
     command="su -l -c"
@@ -218,11 +218,11 @@ if [ ! -x "$(which git 2> /dev/null)" ]; then
     fi
 
     # Install git from package manager
-    if [ -x "$(which yum 2> /dev/null)" ]; then
+    if [[ -x "$(which yum 2> /dev/null)" ]]; then
         eval "${command} \"yum install -y git | tee ${LOGFILE}\""
-    elif [ -x "$(which dnf 2> /dev/null)" ]; then
+    elif [[ -x "$(which dnf 2> /dev/null)" ]]; then
         eval "${command} \"dnf install -y git | tee ${LOGFILE}\""
-    elif [ -x "$(which apt 2> /dev/null)" ]; then
+    elif [[ -x "$(which apt 2> /dev/null)" ]]; then
         eval "${command} \"apt update && apt install -y git | tee ${LOGFILE}\""
     else
         exit 1
@@ -251,4 +251,3 @@ if [[ ${INSTALL_POWERLINE} = true ]]; then
 fi
 
 exit 0
-

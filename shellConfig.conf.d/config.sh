@@ -30,7 +30,7 @@ eval "$(dircolors -b)"
 ## @brief Import the shellConfig main setup file to its required location
 importShellConfigSetupFile() {
     local target="${1}"
-    if [ -f "${target}" ]; then
+    if [[ -f "${target}" ]]; then
         ln -sf "${target}" "${SHELLCONFIG_CONF}"
     else
         Log ${ERROR} "Configuration file : ${target} not found."
@@ -41,32 +41,32 @@ importShellConfigSetupFile() {
 ## @brief Import the directory containing external scripts
 importShellConfigExternalDirectory() {
     local target="${1}"
-    if [ -d "${target}" ]; then
+    if [[ -d "${target}" ]]; then
         ln -sf "${target}" "${SHELLCONFIG_CUSTOM_SCRIPTS_DIR}"
     else
         Log ${ERROR} "External scripts directory not found."
     fi
 }
 
+## @fn refresh
+## @brief Reload the shell configuration
+refresh() {
+    Log ${INFO} "Reloading configuration…"
+    if [[ -n "${ZSH_NAME}" ]]; then
+        source "${HOME}/.zshrc"
+    elif [[ -n "${BASH_VERSION}" ]]; then
+        source "${HOME}/.bashrc"
+    fi
+}
+
 ## @fn updateKit
 ## @brief Update the shellConfig and libShell kits
-updateKit()
-{
+updateKit() {
     Log ${INFO} "Updating shellConfig and libShell…"
     git --git-dir="$(realpath ${LIBSHELL_DIR})/.git" \
         --work-tree="$(realpath ${LIBSHELL_DIR})" pull origin master
     git --git-dir="$(realpath ${SHELLCONFIG_CONF_DIR})/../.git" \
         --work-tree="$(realpath ${SHELLCONFIG_CONF_DIR})/.." pull origin master
-}
 
-## @fn refresh
-## @brief Reload the shell configuration
-refresh()
-{
-    Log ${INFO} "Reloading configuration…"
-    if [ -n "${ZSH_NAME}" ]; then
-        source "${HOME}/.zshrc"
-    elif [ -n "${BASH_VERSION}" ]; then
-        source "${HOME}/.bashrc"
-    fi
+    refresh
 }

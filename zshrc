@@ -22,7 +22,7 @@ if [[ -d "${HOME}/.oh-my-zsh" ]]; then
     ZSH_THEME="agnoster"
     CASE_SENSITIVE="false"
     HYPHEN_INSENSITIVE="true"
-    plugins=(git git-extras command-not-found)
+    plugins=(git git-extras)
     typeset -x ZSH=${HOME}/.oh-my-zsh
     source "${ZSH}"/oh-my-zsh.sh
 fi

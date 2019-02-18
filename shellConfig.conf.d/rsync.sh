@@ -46,6 +46,6 @@ syncServer () {
     local dest="${2}"
     local index=$(getArrayOffset)
     host=$(cut -d'=' -f2 <<< "${CURRENT_SRV[${index}]}")
-    rsync -avh "${host}:${src}" "${dest}"
+    rsync -avh --info=progress2 "${host}:${src}" "${dest}"
 }
 

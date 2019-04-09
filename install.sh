@@ -38,11 +38,11 @@ typeset -r OHMYZSH_INSTALLATION_DIR="${HOME}/.oh-my-zsh"
 
 ## @var LIBSHELL_GIT_URL
 ## @brief libShell remote repository
-typeset -r LIBSHELL_GIT_URL="https://code.guillaume-bernard.fr/guilieb/libShell.git"
+typeset -r LIBSHELL_GIT_URL="https://github.com/guilieb/libShell.git"
 
 ## @var SHELLCONFIG_GIT_URL
 ## @brief shellconfig remote repository
-typeset -r SHELLCONFIG_GIT_URL="https://code.guillaume-bernard.fr/guilieb/shellConfig.git"
+typeset -r SHELLCONFIG_GIT_URL="https://github.com/guilieb/shellConfig.git"
 
 ## @var POWERLINEFONTS_GIT_URL
 ## @brief Powerline Fonts remote repository

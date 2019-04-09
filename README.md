@@ -1,6 +1,6 @@
 # shellConfig
 
-shellConfig is a tool that automatically configures your shell environment. It works on both **zsh** (> 5.1) and **bash**. It offers you some aliases, useful functions by installing *[libShell](https://code.guillaume-bernard.fr/guilieb/libShell)*.
+shellConfig is a tool that automatically configures your shell environment. It works on both **zsh** (> 5.1) and **bash**. It offers you some aliases, useful functions by installing *[libShell](https://github.com/guilieb/libShell)*.
 
 It can automatically install [Powerline fonts](https://github.com/powerline/fonts), as long as [Oh-My-Zsh](https://ohmyz.sh/) if you use Zsh.
 
@@ -10,7 +10,7 @@ It can automatically install [Powerline fonts](https://github.com/powerline/font
 
 The first step in the installation process is to get the installer from the Web. This is a shell script that lets you install what you want. In order to execute it, give it the proper rights, using *chmod*, like as follow:
 ```bash
-curl -o install.sh https://code.guillaume-bernard.fr/guilieb/shellConfig/raw/master/install.sh
+curl -o install.sh https://github.com/guilieb/shellConfig/raw/master/install.sh
 chmod +x ./install.sh
 ```
 
@@ -66,7 +66,7 @@ importShellConfigSetupFile ~/Documents/Informatique/Configuration/local/shellcon
 
 ```bash
 # get the script
-curl -o install.sh https://code.guillaume-bernard.fr/guilieb/shellConfig/raw/master/install.sh
+curl -o install.sh https://github.com/guilieb/shellConfig/raw/master/install.sh
 chmod +x ./install.sh
 
 # install

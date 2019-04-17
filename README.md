@@ -10,7 +10,7 @@ It can automatically install [Powerline fonts](https://github.com/powerline/font
 
 The first step in the installation process is to get the installer from the Web. This is a shell script that lets you install what you want. In order to execute it, give it the proper rights, using *chmod*, like as follow:
 ```bash
-curl -o install.sh https://github.com/guilieb/shellConfig/raw/master/install.sh
+curl -o install.sh https://raw.githubusercontent.com/guilieb/shellConfig/master/install.sh
 chmod +x ./install.sh
 ```
 
